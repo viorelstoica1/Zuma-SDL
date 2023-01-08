@@ -1,17 +1,7 @@
 #include"Textura.h"
 
 extern SDL_Renderer *gRenderer;
-Textura::Textura(const char* s){
-	tex = IMG_LoadTexture(gRenderer, s);
-	if (!tex){
-		printf("Nu am putut incarca textura %s!\n", s);
-		marime_x = marime_y = 0;
-	}
-	else {
-		SDL_QueryTexture(tex, NULL, NULL, &marime_x, &marime_y);
-		printf("Am incarcat textura %s cu latimea %d si inaltimea %d\n", s, marime_x, marime_y);
-	}
-}
+
 
 Textura::~Textura(){
 	if (tex){
@@ -35,4 +25,14 @@ int Textura::GetMarimeX()
 int Textura::GetMarimeY()
 {
 	return marime_y;
+}
+
+int Textura::CenterX()
+{
+	return this->GetCoordX()-this->GetMarimeX()/2;
+}
+
+int Textura::CenterY()
+{
+	return this->GetCoordY() - this->GetMarimeY()  / 2;
 }

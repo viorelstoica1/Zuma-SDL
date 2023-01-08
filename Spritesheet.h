@@ -5,7 +5,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-//#include "MainHeader.h"
 #include "Textura.h"
 
 class Spritesheet : public Textura {
@@ -16,7 +15,7 @@ private:
 	//presupune un spritesheet orizontal, cu cadre de marime egala!!
 	SDL_Rect* pozitii_cadre;
 public:
-	Spritesheet(const char* s, unsigned int nrcadre) : Textura(s) {
+	Spritesheet(const char* s, unsigned int nrcadre, int poz_x, int poz_y, float angel) : Textura(s,poz_x, poz_y,angel),GameObject(poz_x,poz_y,angel) {
 		numar_cadre = nrcadre;
 		cadru_curent = 0;
 		pozitii_cadre = new SDL_Rect[numar_cadre];
@@ -35,6 +34,7 @@ public:
 	void SetCadru(int x);
 	void CresteCadru();
 	void ScadeCadru();
+	int CenterX();
 };
 
 

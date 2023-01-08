@@ -1,5 +1,5 @@
-#ifndef _TEST_H
-#define _TEST_H
+#ifndef _MAINHEADER_H
+#define _MAINHEADER_H
 
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL.h>
@@ -9,6 +9,7 @@
 #include <sstream>
 #include "Spritesheet.h"
 #include "Textura.h"
+#include "GameObject.h"
 
 extern SDL_Window* gWindow;//The window we'll be rendering to
 extern SDL_Renderer* gRenderer;//The window renderer

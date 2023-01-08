@@ -49,3 +49,7 @@ void Spritesheet::ScadeCadru()
 	else cadru_curent--;
 }
 
+int Spritesheet::CenterX()
+{
+	return this->GetCoordX() - this->GetMarimeSpriteX()/2;
+}
