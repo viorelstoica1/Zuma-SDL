@@ -10,6 +10,9 @@
 #include "Spritesheet.h"
 #include "Textura.h"
 #include "GameObject.h"
+#include"MovingObject.h"
+#include"Proiectil.h"
+#include"Tun.h"
 
 extern SDL_Window* gWindow;//The window we'll be rendering to
 extern SDL_Renderer* gRenderer;//The window renderer

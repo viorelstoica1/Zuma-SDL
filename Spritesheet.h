@@ -15,7 +15,7 @@ private:
 	//presupune un spritesheet orizontal, cu cadre de marime egala!!
 	SDL_Rect* pozitii_cadre;
 public:
-	Spritesheet(const char* s, unsigned int nrcadre, int poz_x, int poz_y, float angel) : Textura(s,poz_x, poz_y,angel),GameObject(poz_x,poz_y,angel) {
+	Spritesheet(const char* s, unsigned int nrcadre, float poz_x, float poz_y, float angel) : Textura(s,poz_x, poz_y,angel),GameObject(poz_x,poz_y,angel) {
 		numar_cadre = nrcadre;
 		cadru_curent = 0;
 		pozitii_cadre = new SDL_Rect[numar_cadre];

@@ -1,6 +1,6 @@
 #include"GameObject.h"
 
-GameObject::GameObject(int poz_x, int poz_y, float angel){
+GameObject::GameObject(float poz_x, float poz_y, float angel){
 	x = poz_x;
 	y = poz_y;
 	unghi = angel;
@@ -11,19 +11,19 @@ GameObject::~GameObject(){
 	x = y = unghi = 0;
 }
 
-int GameObject::GetCoordX(){
+float GameObject::GetCoordX(){
 	return x;
 }
 
-int GameObject::GetCoordY(){
+float GameObject::GetCoordY(){
 	return y;
 }
 
-void GameObject::SetCoordX(int _x){
+void GameObject::SetCoordX(float _x){
 	x = _x;
 }
 
-void GameObject::SetCoordY(int _y){
+void GameObject::SetCoordY(float _y){
 	y = _y;
 }
 

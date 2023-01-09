@@ -7,17 +7,18 @@
 
 class GameObject {
 private:
-	int x, y;//coordonate
-	float unghi;//unghi in grade presupun
+	float x, y;//coordonate
+	float unghi;//unghi in RADIANI
 public:
-	GameObject(int poz_x, int poz_y, float angel = 0);
+	GameObject(float poz_x, float poz_y, float angel = 0);
 	~GameObject();
-	int GetCoordX();
-	int GetCoordY();
-	void SetCoordX(int _x);
-	void SetCoordY(int _y);
+	float GetCoordX();
+	float GetCoordY();
+	void SetCoordX(float _x);
+	void SetCoordY(float _y);
 	float GetUnghi();
 	void SetUnghi(float angel);
+	virtual void Update() { };
 };
 
 

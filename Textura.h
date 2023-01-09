@@ -13,7 +13,7 @@ private:
 	int marime_x, marime_y;//marime textura
 	SDL_Texture* tex;//pointer la textura propriu zisa
 public:
-	Textura(const char* s, int poz_x, int poz_y, float angel) :GameObject(poz_x, poz_y, angel) {
+	Textura(const char* s, float poz_x, float poz_y, float angel) :GameObject(poz_x, poz_y, angel) {
 		tex = IMG_LoadTexture(gRenderer, s);
 		if (!tex) {
 			printf("Nu am putut incarca textura %s!\n", s);

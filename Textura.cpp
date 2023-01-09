@@ -26,12 +26,12 @@ int Textura::GetMarimeY()
 {
 	return marime_y;
 }
-
+//"centrul" unei texturi, folosit doar la randat!!
 int Textura::CenterX()
 {
-	return this->GetCoordX()-this->GetMarimeX()/2;
+	return this->GetCoordX() - this->GetMarimeX()/2;
 }
-
+//"centrul" unei texturi, folosit doar la randat!!
 int Textura::CenterY()
 {
 	return this->GetCoordY() - this->GetMarimeY()  / 2;
