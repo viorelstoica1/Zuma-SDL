@@ -35,6 +35,7 @@ public:
 	void CresteCadru();
 	void ScadeCadru();
 	int CenterX();
+	virtual void RenderCenter();
 };
 
 

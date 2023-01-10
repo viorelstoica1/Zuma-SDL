@@ -4,7 +4,7 @@ GameObject::GameObject(float poz_x, float poz_y, float angel){
 	x = poz_x;
 	y = poz_y;
 	unghi = angel;
-	printf("Am construit un GameObject la pozitia x=%d  y=%d cu unghiul %.2f\n", poz_x, poz_y, angel);
+	printf("Am construit un GameObject la pozitia x=%f  y=%f cu unghiul %.2f\n", poz_x, poz_y, angel);
 }
 
 GameObject::~GameObject(){

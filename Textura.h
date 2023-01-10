@@ -30,6 +30,8 @@ public:
 	int GetMarimeY();
 	virtual int CenterX();
 	int CenterY();
+	virtual void Render();
+	virtual void RenderCenter();
 };
 
 #endif

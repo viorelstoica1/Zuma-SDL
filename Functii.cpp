@@ -1,5 +1,10 @@
-#include"MainHeader.h"
+#include"Functii.h"
 
+#include<SDL.h>
+#include<SDL_image.h>
+#include<stdio.h>
+SDL_Window* gWindow = NULL;//The window we'll be rendering to
+SDL_Renderer* gRenderer = NULL;//The window renderer
 
 bool init(int& latime, int& lungime)	//Initialize SDL
 {
@@ -55,4 +60,14 @@ void close(){
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
+}
+
+float DistantaPatrat(float xa,float xb, float ya, float yb){
+	xa -= xb;
+	ya -= yb;
+	return xa * xa + ya * ya;
+}
+
+void Render() {
+
 }

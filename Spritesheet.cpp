@@ -53,3 +53,8 @@ int Spritesheet::CenterX()
 {
 	return this->GetCoordX() - this->GetMarimeSpriteX()/2;
 }
+
+void Spritesheet::RenderCenter(){
+	SDL_Rect poz_randat = { this->CenterX(),this->CenterY(),this->GetMarimeSpriteX(),this->GetMarimeSpriteY() };
+	SDL_RenderCopy(gRenderer, this->GetTex(), this->GetCadruCurent(), &poz_randat);//Render texture to screen
+}

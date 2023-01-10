@@ -6,7 +6,7 @@
 #include"Spritesheet.h"
 
 enum tipProiectil{
-	Bila,Powerup,Bani
+	Ball,Powerup,Bani
 };
 
 class Proiectil : public Textura, public MovingObject {

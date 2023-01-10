@@ -19,8 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bila.cpp" />
     <ClCompile Include="Functii.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Lista.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovingObject.cpp" />
     <ClCompile Include="Proiectil.cpp" />
@@ -29,7 +31,10 @@
     <ClCompile Include="Tun.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bila.h" />
+    <ClInclude Include="Functii.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Lista.h" />
     <ClInclude Include="MainHeader.h" />
     <ClInclude Include="MovingObject.h" />
     <ClInclude Include="Proiectil.h" />

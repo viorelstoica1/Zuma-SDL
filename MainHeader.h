@@ -13,14 +13,12 @@
 #include"MovingObject.h"
 #include"Proiectil.h"
 #include"Tun.h"
+#include"Bila.h"
+#include"Lista.h"
+#include"Functii.h"
 
-extern SDL_Window* gWindow;//The window we'll be rendering to
-extern SDL_Renderer* gRenderer;//The window renderer
 
-//Starts up SDL and creates window
-bool init(int &latime, int &lungime);
 
-//Frees media and shuts down SDL
-void close();
+
 
 #endif
