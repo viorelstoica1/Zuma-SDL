@@ -5,7 +5,7 @@
 #include<stdio.h>
 SDL_Window* gWindow = NULL;//The window we'll be rendering to
 SDL_Renderer* gRenderer = NULL;//The window renderer
-
+int frame = 0;
 bool init(int& latime, int& lungime)	//Initialize SDL
 {
 	bool success = true;	//Initialization flag

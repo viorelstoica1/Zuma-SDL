@@ -30,12 +30,16 @@ public:
 	~Spritesheet();
 	int GetMarimeSpriteX();
 	int GetMarimeSpriteY();
+	int GetNrCadre();
 	SDL_Rect* GetCadruCurent();
 	void SetCadru(int x);
 	void CresteCadru();
 	void ScadeCadru();
 	int CenterX();
 	virtual void RenderCenter();
+	virtual int HitboxX();
+	virtual int HitboxY();
+	void Update();
 };
 
 

@@ -1,5 +1,5 @@
 #include"Spritesheet.h"
-
+extern int frame;
 Spritesheet::~Spritesheet()
 {
 	if (pozitii_cadre)
@@ -19,6 +19,11 @@ int Spritesheet::GetMarimeSpriteX()
 int Spritesheet::GetMarimeSpriteY()
 {
 	return this->GetMarimeY();
+}
+
+int Spritesheet::GetNrCadre()
+{
+	return numar_cadre;
 }
 
 SDL_Rect* Spritesheet::GetCadruCurent()
@@ -57,4 +62,18 @@ int Spritesheet::CenterX()
 void Spritesheet::RenderCenter(){
 	SDL_Rect poz_randat = { this->CenterX(),this->CenterY(),this->GetMarimeSpriteX(),this->GetMarimeSpriteY() };
 	SDL_RenderCopy(gRenderer, this->GetTex(), this->GetCadruCurent(), &poz_randat);//Render texture to screen
+}
+
+int Spritesheet::HitboxX()
+{
+	return this->GetMarimeX() / numar_cadre;
+}
+
+int Spritesheet::HitboxY()
+{
+	return this->GetMarimeY();
+}
+
+void Spritesheet::Update(){
+	this->SetCadru(frame / this->GetNrCadre());
 }

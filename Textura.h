@@ -32,6 +32,8 @@ public:
 	int CenterY();
 	virtual void Render();
 	virtual void RenderCenter();
+	virtual int HitboxX();
+	virtual int HitboxY();
 };
 
 #endif

@@ -17,6 +17,8 @@ public:
 	~Tun();
 	void SetGataTras(bool x) { gata_de_tras = x; };
 	bool GataDeTras() { return gata_de_tras; };
+	Proiectil* GetProiectilIncarcat();
+	void SetProiectilCurent(Proiectil* p);
 };
 
 

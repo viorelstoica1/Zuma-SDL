@@ -3,7 +3,7 @@
 
 #include"Bila.h"
 #include"Proiectil.h"
-
+#include"Tun.h"
 class Lista {
 private:
 	Bila* Cap, *Coada;//doar pointeri,nu lucrez pe memorie
@@ -29,6 +29,8 @@ public:
 	//functie stergere elemente listaa
 	void StergereLista();
 	void RenderList();
+	void Update(Tun* Tunar);
+	bool CheckColiziuneBila(Bila* membru, Proiectil* obuz);
 };
 
 

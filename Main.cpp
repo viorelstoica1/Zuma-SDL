@@ -26,12 +26,12 @@ int main( int argc, char* args[] )
 		Proiectil obuz(Ball,"grafici/Bila_Rosu_Viorel32.png", Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
 		SDL_Rect poz_randat = { 0,0,0,0 };//structura intermediara folosita la toate randarile
 
+		Tunar.SetProiectilCurent(&obuz);
 		Lista ListaBile;
 		ListaBile.adaugaLaStangaListei(biluta1);
 		bool quit = false;//Main loop flag
 		SDL_Event e;//Event handler
 		while( !quit ){
-
 			while( SDL_PollEvent( &e ) != 0 ){//Handle events on queue
 				if( e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){//User requests quit
 					quit = true;
@@ -51,11 +51,6 @@ int main( int argc, char* args[] )
 					printf("Proiectilul are viteza x=%.2f y=%.2f\n", obuz.GetVitezaX(), obuz.GetVitezaY());
 				}
 			}
-			frame++;
-			if (frame >= 4){
-				frame = 0;
-				biluta1->ScadeCadru();
-			}
 			aux = atan2((float)(soricel.maus_y - Tunar.GetCoordY()), (float)(soricel.maus_x - Tunar.GetCoordX()));
 			if (aux < 0){
 				aux += 6.28;
@@ -70,31 +65,10 @@ int main( int argc, char* args[] )
 				printf("A iesit obuzul\n");
 			}
 
-			Bila* auxB = ListaBile.TestColiziune(&obuz);
-			if (auxB){//daca s-a produs coliziune cu bila auxB
-				Bila* noua = ListaBile.CreeazaBila(&obuz);
-				//ListaBile.adaugaLaStangaListei(noua);
-				if (ListaBile.adaugaPeElement(auxB, noua)) {//dreapta
-					//mutam noua bila la locul ei
-					noua->SetCoordX(auxB->GetCoordX() - auxB->GetMarimeSpriteX());
-					noua->SetCoordY(auxB->GetCoordY());
-				}
-				else{//stanga
-					noua->SetCoordX(auxB->GetCoordX() + auxB->GetMarimeSpriteX());
-					noua->SetCoordY(auxB->GetCoordY());
-				}
-
-				//resetam obuzul
-				obuz.SetCoordX(Tunar.GetCoordX());
-				obuz.SetCoordY(Tunar.GetCoordY());
-				obuz.SetViteza(0, 0);
-				Tunar.SetGataTras(1);
-			}
-
+			ListaBile.Update(&Tunar);
 			SDL_RenderClear(gRenderer);	//Clear screen
 			tex_fundal.Render();
 			ListaBile.RenderList();
-			//biluta1.RenderCenter();
 			obuz.RenderCenter();
 			tex_crosshair.Render();
 			Tunar.RenderCenter();

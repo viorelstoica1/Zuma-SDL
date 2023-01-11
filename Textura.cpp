@@ -46,3 +46,11 @@ void Textura::RenderCenter(){
 	SDL_Rect poz_randat = { this->CenterX(),this->CenterY(),this->GetMarimeX(),this->GetMarimeY() };
 	SDL_RenderCopyEx(gRenderer, this->GetTex(), NULL, &poz_randat, this->GetUnghi() * 180 / 3.14 + 90, NULL, SDL_FLIP_NONE);
 }
+
+int Textura::HitboxX(){
+	return marime_x;
+}
+
+int Textura::HitboxY(){
+	return marime_y;
+}

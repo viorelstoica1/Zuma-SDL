@@ -1,6 +1,6 @@
 #include"Lista.h"
 #include"Functii.h"
-
+extern int frame;
 void Lista::adaugaLaStangaListei(Bila* de_introdus){
 	de_introdus->SetBilaDreapta(Cap);
 	if (Cap) {//daca lista nu e goala
@@ -48,13 +48,15 @@ bool Lista::adaugaPeElement(Bila* membru, Bila* de_introdus){
 
 void Lista::StergereLista(){
 	Bila* index = Cap;
+	int x = 0;
 	while (index) {
 		Bila* aux = index->GetBilaDreapta();
 		stergeBila(index);
 		marime--;
 		index = aux;
+		x++;
 	}
-	printf("Am sters lista\n");
+	printf("Am sters lista cu %d elemente\n",x);
 }
 void Lista::RenderList(){
 	Bila* index = Cap;
@@ -63,13 +65,47 @@ void Lista::RenderList(){
 		index = index->GetBilaDreapta();
 	}
 }
+
+void Lista::Update(Tun* Tunar){
+	Bila* index = Cap;
+	while (index) {
+		index->Update();
+		if (CheckColiziuneBila(index, Tunar->GetProiectilIncarcat())) {
+			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
+			if (this->adaugaPeElement(index, noua)) {//dreapta
+				//mutam noua bila la locul ei
+				noua->SetCoordX(index->GetCoordX() - index->GetMarimeSpriteX());
+				noua->SetCoordY(index->GetCoordY());
+			}
+			else {//stanga
+				noua->SetCoordX(index->GetCoordX() + index->GetMarimeSpriteX());
+				noua->SetCoordY(index->GetCoordY());
+			}
+			Tunar->GetProiectilIncarcat()->SetCoordX(Tunar->GetCoordX());
+			Tunar->GetProiectilIncarcat()->SetCoordY(Tunar->GetCoordY());
+			Tunar->GetProiectilIncarcat()->SetViteza(0, 0);
+			Tunar->SetGataTras(1);
+		}
+		index = index->GetBilaDreapta();
+	}
+	frame++;
+	if (frame >= Cap->GetNrCadre() * 4) {
+		frame = 0;
+	}
+}
+bool Lista::CheckColiziuneBila(Bila* membru, Proiectil* obuz){
+	if (DistantaPatrat(obuz->GetCoordX(), membru->GetCoordX(), obuz->GetCoordY(), membru->GetCoordY()) <= pow((obuz->GetMarimeX() + (float)membru->GetMarimeSpriteX()) / 2, 2)) {
+		printf("Coliziune!\n");
+		return true;
+	}
+	return false;
+}
 //parcurge lista si returneaza obiectul cu care s-a facut coliziunea
-Bila* Lista::TestColiziune(Proiectil* obuz)
-{
+Bila* Lista::TestColiziune(Proiectil* obuz){
 	Bila* index = Cap;
 	while (index){
 		//verificare coliziune
-		if (DistantaPatrat(obuz->GetCoordX(), index->GetCoordX(), obuz->GetCoordY(), index->GetCoordY()) <= pow((obuz->GetMarimeX() + index->GetMarimeSpriteX())/2, 2)) {
+		if (DistantaPatrat(obuz->GetCoordX(), index->GetCoordX(), obuz->GetCoordY(), index->GetCoordY()) <= pow((obuz->GetMarimeX() + (float)index->GetMarimeSpriteX())/2, 2)) {
 			printf("Coliziune!\n");
 			return index;
 		}
