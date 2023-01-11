@@ -18,3 +18,19 @@ Bila* Bila::GetBilaDreapta()
 {
 	return urmatoare;
 }
+
+void Bila::CresteNumar(int i){
+	index += i;
+}
+
+void Bila::ScadeNumar(int i){
+	index -= i;
+}
+
+int Bila::GetNumar(){
+	return index;
+}
+
+void Bila::SetNumar(int i){
+	index = i;
+}

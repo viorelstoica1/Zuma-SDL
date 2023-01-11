@@ -1,6 +1,7 @@
 #ifndef _FUNCTII_H
 #define _FUNCTII_H
 
+#include"GameObject.h"
 struct mouse {//struct coord mouse
 	int maus_x, maus_y;
 };
@@ -16,4 +17,7 @@ void close();
 
 void Render();
 
+void AlocareTraseuBile(GameObject* &s);
+
+void StergereTraseu(GameObject* s);
 #endif

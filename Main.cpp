@@ -14,6 +14,8 @@ int main( int argc, char* args[] )
 		printf( "Failed to initialize!\n" );
 	}
 	else {
+		GameObject* s = 0;
+		AlocareTraseuBile(s);
 		int viteza = 15;//coordonatele mouse-ului pe fereastra, sunt setate de SDL_GetMouseState
 		mouse soricel{0, 0};//struct coord mouse
 		SDL_GetMouseState(&soricel.maus_x, &soricel.maus_y);//setare coordonate pentru crosshair inainte de randarea primului frame
@@ -22,12 +24,12 @@ int main( int argc, char* args[] )
 		Bila* biluta1 = new Bila(0,Rosu,0,"grafici/Bila_Rosu_Viorel-Sheet.png", 8,latime/2,200,0);
 		Textura tex_crosshair("grafici/Crosshair.png",soricel.maus_x,soricel.maus_y,0);
 		Textura tex_fundal("grafici/Background_1.png",0,0,0);
-		Tun Tunar("grafici/Cannon.png",latime/2,lungime-lungime/8,0);
+		Tun Tunar("grafici/Cannon.png",latime/2,lungime-lungime/2,0);
 		Proiectil obuz(Ball,"grafici/Bila_Rosu_Viorel32.png", Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
 		SDL_Rect poz_randat = { 0,0,0,0 };//structura intermediara folosita la toate randarile
 
 		Tunar.SetProiectilCurent(&obuz);
-		Lista ListaBile;
+		Lista ListaBile(s);
 		ListaBile.adaugaLaStangaListei(biluta1);
 		bool quit = false;//Main loop flag
 		SDL_Event e;//Event handler
@@ -76,6 +78,7 @@ int main( int argc, char* args[] )
 		}
 		SDL_ShowCursor(SDL_ENABLE);
 		ListaBile.StergereLista();
+		StergereTraseu(s);
 	}
 	close();
 

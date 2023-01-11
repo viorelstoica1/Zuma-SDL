@@ -10,6 +10,7 @@ private:
 	float x, y;//coordonate
 	float unghi;//unghi in RADIANI
 public:
+	GameObject() { x = y = unghi = 0; };
 	GameObject(float poz_x, float poz_y, float angel = 0);
 	~GameObject();
 	float GetCoordX();
@@ -19,6 +20,7 @@ public:
 	float GetUnghi();
 	void SetUnghi(float angel);
 	virtual void Update() { };
+	void Copiaza(GameObject* x);
 };
 
 

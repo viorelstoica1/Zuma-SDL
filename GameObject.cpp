@@ -34,3 +34,9 @@ float GameObject::GetUnghi(){
 void GameObject::SetUnghi(float angel){
 	unghi = angel;
 }
+
+void GameObject::Copiaza(GameObject* x){
+	this->x = x->GetCoordX();
+	this->y = x->GetCoordY();
+	this->unghi = x->GetUnghi();
+}

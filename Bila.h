@@ -29,6 +29,10 @@ public:
 	void SetBilaDreapta(Bila* membru);
 	Bila* GetBilaStanga();
 	Bila* GetBilaDreapta();
+	void CresteNumar(int i);
+	void ScadeNumar(int i);
+	int GetNumar();
+	void SetNumar(int i);
 };
 
 

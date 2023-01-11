@@ -61,7 +61,7 @@ int Spritesheet::CenterX()
 
 void Spritesheet::RenderCenter(){
 	SDL_Rect poz_randat = { this->CenterX(),this->CenterY(),this->GetMarimeSpriteX(),this->GetMarimeSpriteY() };
-	SDL_RenderCopy(gRenderer, this->GetTex(), this->GetCadruCurent(), &poz_randat);//Render texture to screen
+	SDL_RenderCopyEx(gRenderer, this->GetTex(), this->GetCadruCurent(), &poz_randat,this->GetUnghi() * 180 / 3.14 /*+90*/, NULL, SDL_FLIP_NONE);//Render texture to screen
 }
 
 int Spritesheet::HitboxX()

@@ -64,6 +64,7 @@ void Lista::StergereLista(){
 	}
 	printf("Am sters lista cu %d elemente\n",x);
 }
+
 void Lista::RenderList(){
 	Bila* index = Cap;
 	while (index) {
@@ -76,26 +77,33 @@ void Lista::Update(Tun* Tunar){
 	Bila* index = Cap;
 	while (index) {
 		index->Update();
+		index->Copiaza(&traseu[index->GetIndex()]);
 		if (CheckColiziuneBila(index, Tunar->GetProiectilIncarcat())) {
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
 			if (this->adaugaPeElement(index, noua)) {//dreapta
 				//mutam noua bila la locul ei
-				noua->SetCoordX(index->GetCoordX() - index->GetMarimeSpriteX());
-				noua->SetCoordY(index->GetCoordY());
+				noua->SetIndex(index->GetIndex() + index->GetMarimeSpriteX() + 3);
+				//DE FACUT MISCAT CELELALTE BILE MAI INCOLO
 			}
 			else {//stanga
-				noua->SetCoordX(index->GetCoordX() + index->GetMarimeSpriteX());
-				noua->SetCoordY(index->GetCoordY());
+				noua->SetIndex(index->GetIndex() - index->GetMarimeSpriteX());
+				//DE FACUT MISCAT CELELALTE BILE MAI INCOLO
 			}
+			noua->Copiaza(&traseu[noua->GetIndex()]);
 			Tunar->GetProiectilIncarcat()->SetCoordX(Tunar->GetCoordX());
 			Tunar->GetProiectilIncarcat()->SetCoordY(Tunar->GetCoordY());
 			Tunar->GetProiectilIncarcat()->SetViteza(0, 0);
 			Tunar->SetGataTras(1);
 		}
+
+		index->CresteNumar(3);//pozitia lui CresteNumar posibil inainte de coliziune
+		if (index->GetIndex() > 7000) {
+			index->SetIndex(0);
+		}
 		index = index->GetBilaDreapta();
 	}
 	frame++;
-	if (frame >= Cap->GetNrCadre() * 4) {
+	if (frame >= Cap->GetNrCadre() * 8) {
 		frame = 0;
 	}
 }

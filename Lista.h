@@ -9,9 +9,10 @@ private:
 	Bila* Cap, *Coada;//doar pointeri,nu lucrez pe memorie
 	int marime;//cate bile am in sir
 	float viteza, acceleratie,viteza_max;//pentru miscarea bilelor
+	GameObject* traseu;//vector cu traseul bilelor
 public:
-	Lista() { Cap = 0; Coada = 0; marime = 0; viteza = 0;acceleratie = 0; viteza_max = 0; }
-	~Lista() {};
+	Lista(GameObject* s) { traseu = s; Cap = 0; Coada = 0; marime = 0; viteza = 5;acceleratie = 0; viteza_max = 0; }
+	~Lista() { traseu = 0; };
 	//adauga un obiect existent
 	void adaugaLaStangaListei(Bila* de_introdus);
 	//adauga un obiect existent
