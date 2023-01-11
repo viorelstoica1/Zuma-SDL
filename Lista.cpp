@@ -18,20 +18,26 @@ void Lista::adaugaLaStangaListei(Bila* de_introdus){
 void Lista::adaugaDreapta(Bila* membru, Bila* de_introdus){
 	de_introdus->SetBilaStanga(membru);
 	de_introdus->SetBilaDreapta(membru->GetBilaDreapta());
-	membru->SetBilaDreapta(de_introdus);
 	if (Coada == membru) {
 		Coada = de_introdus;
 	}
+	else {
+		membru->GetBilaDreapta()->SetBilaStanga(de_introdus);
+	}
+	membru->SetBilaDreapta(de_introdus);
 	marime++;
 }
 //presupunem ca pointerul membru nu este zero !!
 void Lista::adaugaStanga(Bila* membru, Bila* de_introdus){
 	de_introdus->SetBilaDreapta(membru);
 	de_introdus->SetBilaStanga(membru->GetBilaStanga());
-	membru->SetBilaStanga(de_introdus);
 	if (Cap == membru) {
 		Cap = de_introdus;
 	}
+	else {
+		membru->GetBilaStanga()->SetBilaDreapta(de_introdus);
+	}
+	membru->SetBilaStanga(de_introdus);
 	marime++;
 }
 //verifica daca trebuie adaugat in stanga sau in dreapta si adauga
