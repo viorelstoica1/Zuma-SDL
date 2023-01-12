@@ -13,7 +13,7 @@ private:
 	culoare _culoare;//pentru a testa egalitatea intre bile
 	Bila* urmatoare, *anterioara;
 public:
-	Bila(float vit,culoare c,int i,const char* s, unsigned int nrcadre, float poz_x, float poz_y, float angel) : Spritesheet(s, nrcadre, poz_x, poz_y, angel) , GameObject(poz_x, poz_y, angel) {
+	Bila(float vit,culoare c,int i,/*const char**/ SDL_Texture* s, unsigned int nrcadre, float poz_x, float poz_y, float angel) : Spritesheet(s, nrcadre, poz_x, poz_y, angel) , GameObject(poz_x, poz_y, angel) {
 		_culoare = c;
 		index = i;
 		viteza = vit;

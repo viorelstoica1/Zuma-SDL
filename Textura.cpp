@@ -4,10 +4,10 @@ extern SDL_Renderer *gRenderer;
 
 
 Textura::~Textura(){
-	if (tex){
+	/*if (tex){
 		SDL_DestroyTexture(tex);
 		tex = 0;
-	}
+	}*/
 	marime_x = 0;
 	marime_y = 0;
 }

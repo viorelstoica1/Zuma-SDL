@@ -42,7 +42,7 @@ void Lista::adaugaStanga(Bila* membru, Bila* de_introdus){
 }
 //verifica daca trebuie adaugat in stanga sau in dreapta si adauga
 bool Lista::adaugaPeElement(Bila* membru, Bila* de_introdus){	
-	if (de_introdus->GetCoordX() > membru->GetCoordX()) {//deocamdata las inserarea fara sa tin cont de unghi
+	if (DirectieColiziune(membru,de_introdus)/*de_introdus->GetCoordX() > membru->GetCoordX()*/) {//deocamdata las inserarea fara sa tin cont de unghi
 		this->adaugaDreapta(membru, de_introdus);
 		return 1;
 	}
@@ -77,7 +77,7 @@ void Lista::Update(Tun* Tunar){
 	Bila* index = Cap;
 	bool collided = 0;
 	while (index) {
-		index->Update();
+		index->UpdateSprite();
 		index->CresteNumar(1);
 		if (collided) {//nu stiu unde trebuie sincer
 			index->CresteNumar(index->GetMarimeSpriteX());
@@ -114,8 +114,7 @@ void Lista::Update(Tun* Tunar){
 	}
 }
 bool Lista::CheckColiziuneBila(Bila* membru, Proiectil* obuz){
-	if (DistantaPatrat(obuz->GetCoordX(), membru->GetCoordX(), obuz->GetCoordY(), membru->GetCoordY()) <= pow((obuz->GetMarimeX() + (float)membru->GetMarimeSpriteX()) / 2, 2)) {
-		printf("Coliziune!\n");
+	if (DistantaPatrat(obuz->GetCoordX(), membru->GetCoordX(), obuz->GetCoordY(), membru->GetCoordY()) <= pow((obuz->GetMarimeSpriteX() + (float)membru->GetMarimeSpriteX()) / 2, 2)) {
 		return true;
 	}
 	return false;
@@ -126,7 +125,6 @@ Bila* Lista::TestColiziune(Proiectil* obuz){
 	while (index){
 		//verificare coliziune
 		if (DistantaPatrat(obuz->GetCoordX(), index->GetCoordX(), obuz->GetCoordY(), index->GetCoordY()) <= pow((obuz->GetMarimeX() + (float)index->GetMarimeSpriteX())/2, 2)) {
-			printf("Coliziune!\n");
 			return index;
 		}
 		index = index->GetBilaDreapta();
@@ -148,7 +146,7 @@ void Lista::stergeBila(Bila* membru){
 }
 
 Bila* Lista::CreeazaBila(Proiectil* obuz){
-	Bila* aux = new Bila(0, Rosu, 0, "grafici/Bila_Rosu_Viorel-Sheet.png", 8, obuz->GetCoordX(), obuz->GetCoordY(),obuz->GetUnghi());
+	Bila* aux = new Bila(0, Rosu, 0, obuz->GetTex(), 8, obuz->GetCoordX(), obuz->GetCoordY(),obuz->GetUnghi());
 	return aux;
 	printf("Am creat o bila\n");
 }

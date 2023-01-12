@@ -182,3 +182,20 @@ void StergereTraseu(GameObject* s) {
 	delete[] s;
 	s = 0;
 }
+//foloseste o matrice de rotatie pentru a verifica directia coliziunii la orice unghi
+//NETESTATA
+bool DirectieColiziune(GameObject* membru, GameObject* de_introdus) {
+	float x1, x2;
+	x1 = cos(membru->GetUnghi()) * membru->GetCoordX() - sin(membru->GetUnghi()) * membru->GetCoordY();
+	x2 = cos(membru->GetUnghi()) * de_introdus->GetCoordX() - sin(membru->GetUnghi()) * de_introdus->GetCoordY();
+	if (x1 > x2) {
+		return 0;//stanga
+	}
+	else {
+		return 1;//dreapta
+	}
+}
+
+//SDL_Texture* GetRandomBila(SDL_Texture* s) {
+//	return s;
+//}

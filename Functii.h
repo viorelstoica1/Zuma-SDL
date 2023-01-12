@@ -20,4 +20,7 @@ void Render();
 void AlocareTraseuBile(GameObject* &s);
 
 void StergereTraseu(GameObject* s);
+
+bool DirectieColiziune(GameObject* membru, GameObject* de_introdus);
+
 #endif

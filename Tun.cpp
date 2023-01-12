@@ -13,3 +13,9 @@ Proiectil* Tun::GetProiectilIncarcat(){
 void Tun::SetProiectilCurent(Proiectil* p){
 	p_curent = p;
 }
+
+//void Tun::CicleazaProiectil(){
+//	Proiectil* aux = p_curent;
+//	p_curent = p_rezerva;
+//	p_rezerva = aux;
+//}

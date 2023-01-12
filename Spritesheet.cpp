@@ -74,6 +74,6 @@ int Spritesheet::HitboxY()
 	return this->GetMarimeY();
 }
 
-void Spritesheet::Update(){
+void Spritesheet::UpdateSprite(){
 	this->SetCadru(frame / this->GetNrCadre());
 }

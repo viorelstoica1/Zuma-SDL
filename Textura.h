@@ -13,15 +13,16 @@ private:
 	int marime_x, marime_y;//marime textura
 	SDL_Texture* tex;//pointer la textura propriu zisa
 public:
-	Textura(const char* s, float poz_x, float poz_y, float angel) :GameObject(poz_x, poz_y, angel) {
-		tex = IMG_LoadTexture(gRenderer, s);
+	Textura(/*const char* s*/SDL_Texture* s, float poz_x, float poz_y, float angel) :GameObject(poz_x, poz_y, angel) {
+		//tex = IMG_LoadTexture(gRenderer, s);
+		tex = s;
 		if (!tex) {
-			printf("Nu am putut incarca textura %s!\n", s);
+			//printf("Nu am putut incarca textura %s!\n", s);
 			marime_x = marime_y = 0;
 		}
 		else {
 			SDL_QueryTexture(tex, NULL, NULL, &marime_x, &marime_y);
-			printf("Am incarcat textura %s cu latimea %d si inaltimea %d\n", s, marime_x, marime_y);
+			//printf("Am incarcat textura %s cu latimea %d si inaltimea %d\n", s, marime_x, marime_y);
 		}
 	}
 	~Textura();
