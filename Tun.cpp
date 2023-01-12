@@ -34,11 +34,7 @@ void Tun::Update(mouse* soricel){
 	this->SetUnghi(aux);//bun??
 	this->GetProiectilIncarcat()->Update();
 	if ((this->GetProiectilIncarcat()->GetCoordX() + this->GetProiectilIncarcat()->GetMarimeX()) < 0 || (this->GetProiectilIncarcat()->GetCoordY() + this->GetProiectilIncarcat()->GetMarimeY()) < 0 || (this->GetProiectilIncarcat()->GetCoordX() > latime) || (this->GetProiectilIncarcat()->GetCoordY() > lungime)) {//daca a iesit din ecran
-		this->GetProiectilIncarcat()->SetCoordX(this->GetCoordX());
-		this->GetProiectilIncarcat()->SetCoordY(this->GetCoordY());
-		this->GetProiectilIncarcat()->SetViteza(0, 0);
-		this->SetGataTras(1);
-		this->CicleazaProiectil();
+		this->TerminatTras();
 		printf("A iesit obuzul\n");
 	}
 }
@@ -50,6 +46,14 @@ void Tun::Trage(mouse* soricel){
 	this->GetProiectilIncarcat()->SetUnghi(this->GetUnghi());
 	printf("Proiectilul are viteza x=%.2f y=%.2f\n",this->GetProiectilIncarcat()->GetVitezaX(), this->GetProiectilIncarcat()->GetVitezaY());
 
+}
+
+void Tun::TerminatTras(){
+	this->GetProiectilIncarcat()->SetCoordX(this->GetCoordX());
+	this->GetProiectilIncarcat()->SetCoordY(this->GetCoordY());
+	this->GetProiectilIncarcat()->SetViteza(0, 0);
+	this->SetGataTras(1);
+	this->CicleazaProiectil();
 }
 
 int Tun::GetVitezaTragere()

@@ -96,11 +96,7 @@ void Lista::Update(Tun* Tunar){
 			}
 			index = noua;
 			noua->Copiaza(&traseu[noua->GetIndex()]);
-			Tunar->GetProiectilIncarcat()->SetCoordX(Tunar->GetCoordX());
-			Tunar->GetProiectilIncarcat()->SetCoordY(Tunar->GetCoordY());
-			Tunar->GetProiectilIncarcat()->SetViteza(0, 0);
-			Tunar->SetGataTras(1);
-			Tunar->CicleazaProiectil();
+			Tunar->TerminatTras();
 			collided = 1;
 		}
 		//index->CresteNumar(1);//pozitia lui CresteNumar posibil inainte de coliziune

@@ -27,6 +27,7 @@ public:
 	void CicleazaProiectil();
 	void Update(mouse *soricel);
 	void Trage(mouse* soricel);
+	void TerminatTras();
 	int GetVitezaTragere();
 };
 
