@@ -12,6 +12,10 @@ Textura::~Textura(){
 	marime_y = 0;
 }
 
+void Textura::SetTex(SDL_Texture* s){
+	tex = s;
+}
+
 SDL_Texture* Textura::GetTex()
 {
 	return tex;

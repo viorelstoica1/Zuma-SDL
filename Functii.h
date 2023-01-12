@@ -23,4 +23,9 @@ void StergereTraseu(GameObject* s);
 
 bool DirectieColiziune(GameObject* membru, GameObject* de_introdus);
 
+SDL_Texture* GetRandomBila(SDL_Texture** s);
+
+void AlocareTexturi(SDL_Texture** &s);
+
+void DealocareTexturi(SDL_Texture** &s);
 #endif

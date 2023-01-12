@@ -77,3 +77,5 @@ int Spritesheet::HitboxY()
 void Spritesheet::UpdateSprite(){
 	this->SetCadru(frame / this->GetNrCadre());
 }
+
+

@@ -26,6 +26,7 @@ public:
 		}
 	}
 	~Textura();
+	void SetTex(SDL_Texture* s);
 	SDL_Texture* GetTex();
 	int GetMarimeX();
 	int GetMarimeY();

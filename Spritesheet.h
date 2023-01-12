@@ -40,6 +40,7 @@ public:
 	virtual int HitboxX();
 	virtual int HitboxY();
 	void UpdateSprite();
+
 };
 
 

@@ -1,5 +1,6 @@
 #include"Tun.h"
 
+extern int latime, lungime;
 Tun::~Tun(){
 	p_curent = 0;
 	p_rezerva = 0;
@@ -14,8 +15,46 @@ void Tun::SetProiectilCurent(Proiectil* p){
 	p_curent = p;
 }
 
-//void Tun::CicleazaProiectil(){
-//	Proiectil* aux = p_curent;
-//	p_curent = p_rezerva;
-//	p_rezerva = aux;
-//}
+void Tun::SetProiectilRezerva(Proiectil* p){
+	p_rezerva = p;
+}
+
+void Tun::CicleazaProiectil(){
+	Proiectil* aux = p_curent;
+	p_curent = p_rezerva;
+	p_rezerva = aux;
+	p_rezerva->SetTex(GetRandomBila(lista_texturi));
+}
+
+void Tun::Update(mouse* soricel){
+	float aux = atan2((float)(soricel->maus_y - this->GetCoordY()), (float)(soricel->maus_x - this->GetCoordX()));
+	if (aux < 0) {
+		aux += 6.28;
+	}
+	this->SetUnghi(aux);//bun??
+	this->GetProiectilIncarcat()->Update();
+	if ((this->GetProiectilIncarcat()->GetCoordX() + this->GetProiectilIncarcat()->GetMarimeX()) < 0 || (this->GetProiectilIncarcat()->GetCoordY() + this->GetProiectilIncarcat()->GetMarimeY()) < 0 || (this->GetProiectilIncarcat()->GetCoordX() > latime) || (this->GetProiectilIncarcat()->GetCoordY() > lungime)) {//daca a iesit din ecran
+		this->GetProiectilIncarcat()->SetCoordX(this->GetCoordX());
+		this->GetProiectilIncarcat()->SetCoordY(this->GetCoordY());
+		this->GetProiectilIncarcat()->SetViteza(0, 0);
+		this->SetGataTras(1);
+		this->CicleazaProiectil();
+		printf("A iesit obuzul\n");
+	}
+}
+
+void Tun::Trage(mouse* soricel){
+	this->SetGataTras(0);
+	printf("Unghi tragere: %f\n", this->GetUnghi());
+	this->GetProiectilIncarcat()->SetViteza(cos(this->GetUnghi()) * this->GetVitezaTragere(), sin(this->GetUnghi()) * this->GetVitezaTragere());
+	this->GetProiectilIncarcat()->SetUnghi(this->GetUnghi());
+	printf("Proiectilul are viteza x=%.2f y=%.2f\n",this->GetProiectilIncarcat()->GetVitezaX(), this->GetProiectilIncarcat()->GetVitezaY());
+
+}
+
+int Tun::GetVitezaTragere()
+{
+	return viteza_tragere;
+}
+
+

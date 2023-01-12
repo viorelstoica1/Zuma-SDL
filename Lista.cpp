@@ -100,6 +100,7 @@ void Lista::Update(Tun* Tunar){
 			Tunar->GetProiectilIncarcat()->SetCoordY(Tunar->GetCoordY());
 			Tunar->GetProiectilIncarcat()->SetViteza(0, 0);
 			Tunar->SetGataTras(1);
+			Tunar->CicleazaProiectil();
 			collided = 1;
 		}
 		//index->CresteNumar(1);//pozitia lui CresteNumar posibil inainte de coliziune
