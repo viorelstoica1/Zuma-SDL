@@ -44,11 +44,11 @@ void Lista::adaugaStanga(Bila* membru, Bila* de_introdus){
 bool Lista::adaugaPeElement(Bila* membru, Bila* de_introdus){	
 	if (de_introdus->GetCoordX() > membru->GetCoordX()) {//deocamdata las inserarea fara sa tin cont de unghi
 		this->adaugaDreapta(membru, de_introdus);
-		return 0;
+		return 1;
 	}
 	else {
 		this->adaugaStanga(membru, de_introdus);
-		return 1;
+		return 0;
 	}
 }
 
@@ -75,28 +75,34 @@ void Lista::RenderList(){
 
 void Lista::Update(Tun* Tunar){
 	Bila* index = Cap;
+	bool collided = 0;
 	while (index) {
 		index->Update();
+		index->CresteNumar(1);
+		if (collided) {//nu stiu unde trebuie sincer
+			index->CresteNumar(index->GetMarimeSpriteX());
+		}
 		index->Copiaza(&traseu[index->GetIndex()]);
 		if (CheckColiziuneBila(index, Tunar->GetProiectilIncarcat())) {
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
 			if (this->adaugaPeElement(index, noua)) {//dreapta
 				//mutam noua bila la locul ei
-				noua->SetIndex(index->GetIndex() + index->GetMarimeSpriteX() + 3);
-				//DE FACUT MISCAT CELELALTE BILE MAI INCOLO
+				noua->SetIndex(index->GetIndex() + index->GetMarimeSpriteX() );
+				printf("Coliziune dreapta!\n");
 			}
 			else {//stanga
-				noua->SetIndex(index->GetIndex() - index->GetMarimeSpriteX());
-				//DE FACUT MISCAT CELELALTE BILE MAI INCOLO
+				noua->SetIndex(index->GetIndex() + 1);//plus viteza sirului, 1 temporar
+				printf("Coliziune stanga!\n");
 			}
+			index = noua;
 			noua->Copiaza(&traseu[noua->GetIndex()]);
 			Tunar->GetProiectilIncarcat()->SetCoordX(Tunar->GetCoordX());
 			Tunar->GetProiectilIncarcat()->SetCoordY(Tunar->GetCoordY());
 			Tunar->GetProiectilIncarcat()->SetViteza(0, 0);
 			Tunar->SetGataTras(1);
+			collided = 1;
 		}
-
-		index->CresteNumar(3);//pozitia lui CresteNumar posibil inainte de coliziune
+		//index->CresteNumar(1);//pozitia lui CresteNumar posibil inainte de coliziune
 		if (index->GetIndex() > 7000) {
 			index->SetIndex(0);
 		}
