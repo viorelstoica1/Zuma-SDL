@@ -76,6 +76,11 @@ void Lista::RenderList(){
 void Lista::Update(Tun* Tunar){
 	Bila* index = Cap;
 	bool collided = 0;
+	if (index->GetIndex()>=index->GetMarimeSpriteX() && de_introdus) {
+		this->adaugaLaStangaListei(this->CreeazaBila(Tunar->GetProiectilIncarcat()));
+		Cap->SetTex(GetRandomBila(Tunar->GetListaTexturi()));
+		de_introdus--;
+	}
 	while (index) {
 		index->UpdateSprite();
 		index->CresteNumar(1);

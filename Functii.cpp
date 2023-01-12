@@ -77,11 +77,12 @@ void Render() {
 //primeste un pointer si returneaza sir de Gameobject ca traseu pt bile
 void AlocareTraseuBile(GameObject* &s) {
 	s = new GameObject[7000];//6682
-	int i;float x, y;
-	for (i = 0;i < 50;i++) {
+	int i = 0;
+	for (int j = -50;j < 50;j++) {
 		s[i].SetCoordX(700);
-		s[i].SetCoordY(i);
+		s[i].SetCoordY(j);
 		s[i].SetUnghi(1.57);
+		i++;
 	}
 	for (float unghi = 3.14;unghi > 1.57;unghi = unghi-0.01) {
 		s[i].SetCoordX(cos(unghi) * 100 + 800);
@@ -185,7 +186,7 @@ void StergereTraseu(GameObject* s) {
 	s = 0;
 }
 //foloseste o matrice de rotatie pentru a verifica directia coliziunii la orice unghi
-//NETESTATA
+//NETESTATA, POSIBIL SA NU MEARGA
 bool DirectieColiziune(GameObject* membru, GameObject* de_introdus) {
 	float x1, x2;
 	x1 = cos(membru->GetUnghi()) * membru->GetCoordX() - sin(membru->GetUnghi()) * membru->GetCoordY();

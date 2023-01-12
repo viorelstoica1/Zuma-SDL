@@ -61,4 +61,9 @@ int Tun::GetVitezaTragere()
 	return viteza_tragere;
 }
 
+SDL_Texture** Tun::GetListaTexturi()
+{
+	return lista_texturi;
+}
+
 

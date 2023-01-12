@@ -7,11 +7,11 @@
 class Lista {
 private:
 	Bila* Cap, *Coada;//doar pointeri,nu lucrez pe memorie
-	int marime;//cate bile am in sir
+	int marime, de_introdus;//cate bile am in sir
 	float viteza, acceleratie,viteza_max;//pentru miscarea bilelor
 	GameObject* traseu;//vector cu traseul bilelor
 public:
-	Lista(GameObject* s) { traseu = s; Cap = 0; Coada = 0; marime = 0; viteza = 5;acceleratie = 0; viteza_max = 0; }
+	Lista(GameObject* s, int bile_de_introdus) { de_introdus = bile_de_introdus; traseu = s; Cap = 0; Coada = 0; marime = 0; viteza = 5;acceleratie = 0; viteza_max = 0; }
 	~Lista() { traseu = 0; };
 	//adauga un obiect existent
 	void adaugaLaStangaListei(Bila* de_introdus);

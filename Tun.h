@@ -29,6 +29,7 @@ public:
 	void Trage(mouse* soricel);
 	void TerminatTras();
 	int GetVitezaTragere();
+	SDL_Texture** GetListaTexturi();
 };
 
 
