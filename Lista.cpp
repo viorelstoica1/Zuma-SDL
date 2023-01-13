@@ -77,7 +77,7 @@ void Lista::RenderList(){
 void Lista::Update(Tun* Tunar){
 	static int de_introdus_original = de_introdus;
 	static float viteza_curenta = viteza, viteza_max_curenta = viteza_max;
-	Bila* index = Cap;
+	Bila* index = Cap, *coliziune = 0;
 	bool collided = 0;
 	if (index->GetIndex()>=index->GetMarimeSpriteX() && de_introdus) {
 		this->adaugaLaStangaListei(this->CreeazaBila(Tunar->GetProiectilIncarcat()));
@@ -94,6 +94,7 @@ void Lista::Update(Tun* Tunar){
 		index->Copiaza(&traseu[index->GetIndex()]);
 		if (CheckColiziuneBila(index, Tunar->GetProiectilIncarcat())) {
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
+			coliziune = noua;
 			if (this->adaugaPeElement(index, noua)) {//dreapta
 				//mutam noua bila la locul ei
 				noua->SetIndex(index->GetIndex() -viteza /*+ index->GetMarimeSpriteX()*/ );
@@ -118,13 +119,17 @@ void Lista::Update(Tun* Tunar){
 		}
 		index = index->GetBilaDreapta();
 	}
+	if (coliziune) {
+		int nr_bile_identice = Check3Bile(coliziune);
+		printf("Sunt %d bile de aceeasi culoare\n", nr_bile_identice);
+		if (nr_bile_identice >= 3) {
+			StergeBileIdentice(coliziune);
+		}
+	}
 	frame++;
 	if (frame >= Cap->GetNrCadre() * 8) {
 		frame = 0;
 	}
-	//if (de_introdus_original / 4 <= de_introdus_original - de_introdus) {//daca s-au introdus un sfert din bile
-	//	acceleratie = -1;
-	//}
 	if (Coada->GetIndex() >= 750) {
 		viteza_max_curenta = viteza_max;
 	}
@@ -151,6 +156,67 @@ void Lista::CalculeazaAcceleratia(float viteza_, float viteza_max_){
 	}
 	else acceleratie = -0.2;
 }
+//verifica cate bile identice sunt legate de bila data parametru
+int Lista::Check3Bile(Bila* membru){
+	int nr = 1;
+	Bila* pstanga = membru->GetBilaStanga();
+	Bila* pdreapta = membru->GetBilaDreapta();
+	while (pstanga) {
+		if (pstanga->GetTex() != membru->GetTex()) {
+			pstanga = 0;
+		}
+		else {
+			nr++;
+			pstanga = pstanga->GetBilaStanga();
+		}
+	}
+	while (pdreapta) {
+		if (pdreapta->GetTex() != membru->GetTex()) {
+			pdreapta = 0;
+		}
+		else {
+			nr++;
+			pdreapta = pdreapta->GetBilaDreapta();
+		}
+	}
+	return nr;
+}
+//Merge la stanga de bila data ca parametru, apoi sterge bilele identice si muta totul de dupa la stanga
+void Lista::StergeBileIdentice(Bila* membru){
+	int nr = 1;
+	Bila* pstanga = membru->GetBilaStanga();
+	Bila* pdreapta = membru->GetBilaDreapta();
+	Bila* aux = 0;
+	while (pstanga) {
+		if (pstanga->GetTex() != membru->GetTex()) {
+			pstanga = 0;
+		}
+		else {
+			nr++;
+			aux = pstanga->GetBilaStanga();
+			stergeBila(pstanga);
+			pstanga = aux;
+		}
+	}
+	while (pdreapta) {
+		if (pdreapta->GetTex() != membru->GetTex()) {
+			pdreapta = 0;
+		}
+		else {
+			nr++;
+			aux = pdreapta->GetBilaDreapta();
+			stergeBila(pdreapta);
+			pdreapta = aux;
+		}
+	}
+	pdreapta = Coada;
+	while (pdreapta != membru) {
+		pdreapta->ScadeNumar(pdreapta->GetMarimeSpriteX() * nr);
+		pdreapta = pdreapta->GetBilaStanga();
+	}
+	stergeBila(membru);
+	printf("Am sters %d bile\n", nr);
+}
 //parcurge lista si returneaza obiectul cu care s-a facut coliziunea
 Bila* Lista::TestColiziune(Proiectil* obuz){
 	Bila* index = Cap;
@@ -168,8 +234,14 @@ void Lista::stergeBila(Bila* membru){
 	if (membru->GetBilaStanga()){
 		membru->GetBilaStanga()->SetBilaDreapta(membru->GetBilaDreapta());
 	}
+	else {
+		Cap = membru->GetBilaDreapta();
+	}
 	if (membru->GetBilaDreapta()){
 		membru->GetBilaDreapta()->SetBilaStanga(membru->GetBilaStanga());
+	}
+	else {
+		Coada = membru->GetBilaStanga();
 	}
 	membru->SetBilaDreapta(0);
 	membru->SetBilaStanga(0);

@@ -42,7 +42,7 @@ int main( int argc, char* args[] )
 				if( e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){//User requests quit
 					quit = true;
 				}
-				if (e.type == SDL_MOUSEMOTION){//A miscat soricellu
+				if (e.type == SDL_MOUSEMOTION){//A miscat soricelu
 					soricel.maus_x = e.motion.x;
 					soricel.maus_y = e.motion.y;
 					Crosshair.SetCoordX(soricel.maus_x - Crosshair.GetMarimeX()/2);
