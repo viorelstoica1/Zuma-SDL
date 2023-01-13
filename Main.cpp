@@ -33,7 +33,7 @@ int main( int argc, char* args[] )
 
 		Tunar.SetProiectilCurent(&obuz);
 		Tunar.SetProiectilRezerva(&rezerva);
-		Lista ListaBile(Traseu,100, 20);
+		Lista ListaBile(Traseu,100, 20, 2);
 		ListaBile.adaugaLaStangaListei(biluta1);
 		bool quit = false;//Main loop flag
 		SDL_Event e;//Event handler

@@ -11,7 +11,7 @@ private:
 	float viteza, acceleratie,viteza_max;//pentru miscarea bilelor
 	GameObject* traseu;//vector cu traseul bilelor
 public:
-	Lista(GameObject* s, int bile_de_introdus, int viteza_sir) { de_introdus = bile_de_introdus; traseu = s; Cap = 0; Coada = 0; marime = 0; viteza = viteza_sir;acceleratie = 0; viteza_max = viteza_sir; }
+	Lista(GameObject* s, int bile_de_introdus, int viteza_sir_intrare, int viteza_max_generala) { de_introdus = bile_de_introdus; traseu = s; Cap = 0; Coada = 0; marime = 0; viteza = viteza_sir_intrare;acceleratie = 0; viteza_max = viteza_max_generala; }
 	~Lista() { traseu = 0; };
 	//adauga un obiect existent
 	void adaugaLaStangaListei(Bila* de_introdus);
@@ -32,7 +32,7 @@ public:
 	void RenderList();
 	void Update(Tun* Tunar);
 	bool CheckColiziuneBila(Bila* membru, Proiectil* obuz);
-	void CalculeazaAcceleratia();
+	void CalculeazaAcceleratia(float viteza, float viteza_max);
 };
 
 

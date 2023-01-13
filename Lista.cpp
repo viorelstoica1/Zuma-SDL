@@ -76,6 +76,7 @@ void Lista::RenderList(){
 
 void Lista::Update(Tun* Tunar){
 	static int de_introdus_original = de_introdus;
+	static float viteza_curenta = viteza, viteza_max_curenta = viteza_max;
 	Bila* index = Cap;
 	bool collided = 0;
 	if (index->GetIndex()>=index->GetMarimeSpriteX() && de_introdus) {
@@ -125,13 +126,14 @@ void Lista::Update(Tun* Tunar){
 	//	acceleratie = -1;
 	//}
 	if (Coada->GetIndex() >= 750) {
-		viteza_max = 3;
+		viteza_max_curenta = viteza_max;
 	}
 	if (Coada->GetIndex() >= 6000) {
-		viteza_max = 1;
+		viteza_max_curenta = 1;
 	}
-	CalculeazaAcceleratia();
-	viteza = viteza + acceleratie;
+	CalculeazaAcceleratia(viteza_curenta,viteza_max_curenta);
+	viteza_curenta = viteza_curenta + acceleratie;
+	viteza = viteza_curenta;
 }
 
 bool Lista::CheckColiziuneBila(Bila* membru, Proiectil* obuz){
@@ -140,11 +142,11 @@ bool Lista::CheckColiziuneBila(Bila* membru, Proiectil* obuz){
 	}
 	return false;
 }
-void Lista::CalculeazaAcceleratia(){
-	if (viteza == viteza_max) {
+void Lista::CalculeazaAcceleratia(float viteza_, float viteza_max_){
+	if (viteza_ == viteza_max_) {
 		acceleratie = 0;
 	}
-	else if (viteza < viteza_max) {
+	else if (viteza_ < viteza_max_) {
 		acceleratie = 0.2;
 	}
 	else acceleratie = -0.2;
