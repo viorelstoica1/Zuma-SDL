@@ -31,6 +31,14 @@ void Tun::Update(mouse* soricel){
 	if (aux < 0) {
 		aux += 6.28;
 	}
+	if (gata_de_tras) {
+		p_curent->SetCoordX(this->GetCoordX() + cos(aux) * 35);
+		p_curent->SetCoordY(this->GetCoordY() + sin(aux) * 35);
+		p_curent->SetUnghi(aux);
+	}
+	p_rezerva->SetCoordX(this->GetCoordX() - cos(aux) * 15);
+	p_rezerva->SetCoordY(this->GetCoordY() - sin(aux) * 15);
+	p_rezerva->SetUnghi(aux);
 	this->SetUnghi(aux);//bun??
 	this->GetProiectilIncarcat()->Update();
 	if ((this->GetProiectilIncarcat()->GetCoordX() + this->GetProiectilIncarcat()->GetMarimeX()) < 0 || (this->GetProiectilIncarcat()->GetCoordY() + this->GetProiectilIncarcat()->GetMarimeY()) < 0 || (this->GetProiectilIncarcat()->GetCoordX() > latime) || (this->GetProiectilIncarcat()->GetCoordY() > lungime)) {//daca a iesit din ecran
@@ -64,6 +72,17 @@ int Tun::GetVitezaTragere()
 SDL_Texture** Tun::GetListaTexturi()
 {
 	return lista_texturi;
+}
+
+void Tun::RenderProiectile(){
+	p_curent->RenderCenter();
+	p_rezerva->RenderCenter();
+}
+
+void Tun::SchimbaOrdineProiectile(){
+	Proiectil* aux = p_curent;
+	p_curent = p_rezerva;
+	p_rezerva = aux;
 }
 
 

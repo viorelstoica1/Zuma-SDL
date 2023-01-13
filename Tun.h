@@ -7,7 +7,7 @@
 class Tun : public Textura {
 private:
 	Proiectil* p_curent, * p_rezerva;//doar o referinta, nu alocam memorie
-	bool gata_de_tras;
+	bool gata_de_tras;//1 pregatit de tras, 0 nu e gata
 	int viteza_tragere;
 	SDL_Texture** lista_texturi;
 public:
@@ -30,6 +30,8 @@ public:
 	void TerminatTras();
 	int GetVitezaTragere();
 	SDL_Texture** GetListaTexturi();
+	void RenderProiectile();
+	void SchimbaOrdineProiectile();
 };
 
 

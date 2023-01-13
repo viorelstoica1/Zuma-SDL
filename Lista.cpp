@@ -11,6 +11,7 @@ void Lista::adaugaLaStangaListei(Bila* de_introdus){
 		Cap = de_introdus;
 		Coada = de_introdus;
 	}
+	de_introdus->CresteNumar(viteza);
 	marime++;
 	printf("Am adaugat element la inceputul listei, marime: %d\n",marime);
 }
@@ -74,16 +75,18 @@ void Lista::RenderList(){
 }
 
 void Lista::Update(Tun* Tunar){
+	static int de_introdus_original = de_introdus;
 	Bila* index = Cap;
 	bool collided = 0;
 	if (index->GetIndex()>=index->GetMarimeSpriteX() && de_introdus) {
 		this->adaugaLaStangaListei(this->CreeazaBila(Tunar->GetProiectilIncarcat()));
 		Cap->SetTex(GetRandomBila(Tunar->GetListaTexturi()));
+		Cap->CresteNumar(index->GetIndex()%index->GetMarimeSpriteX());
 		de_introdus--;
 	}
 	while (index) {
 		index->UpdateSprite();
-		index->CresteNumar(1);
+		index->CresteNumar(viteza);
 		if (collided) {//nu stiu unde trebuie sincer
 			index->CresteNumar(index->GetMarimeSpriteX());
 		}
@@ -92,14 +95,18 @@ void Lista::Update(Tun* Tunar){
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
 			if (this->adaugaPeElement(index, noua)) {//dreapta
 				//mutam noua bila la locul ei
-				noua->SetIndex(index->GetIndex() + index->GetMarimeSpriteX() );
+				noua->SetIndex(index->GetIndex() -viteza /*+ index->GetMarimeSpriteX()*/ );
 				printf("Coliziune dreapta!\n");
+				//index = noua;
 			}
 			else {//stanga
-				noua->SetIndex(index->GetIndex() + 1);//plus viteza sirului, 1 temporar
+				noua->SetIndex(index->GetIndex() );//plus viteza sirului, 1 temporar
 				printf("Coliziune stanga!\n");
+				index->ScadeNumar(viteza);
+				index = noua;
 			}
-			index = noua;
+			//index = index->GetBilaDreapta();
+			//index = noua;
 			noua->Copiaza(&traseu[noua->GetIndex()]);
 			Tunar->TerminatTras();
 			collided = 1;
@@ -114,12 +121,33 @@ void Lista::Update(Tun* Tunar){
 	if (frame >= Cap->GetNrCadre() * 8) {
 		frame = 0;
 	}
+	//if (de_introdus_original / 4 <= de_introdus_original - de_introdus) {//daca s-au introdus un sfert din bile
+	//	acceleratie = -1;
+	//}
+	if (Coada->GetIndex() >= 750) {
+		viteza_max = 3;
+	}
+	if (Coada->GetIndex() >= 6000) {
+		viteza_max = 1;
+	}
+	CalculeazaAcceleratia();
+	viteza = viteza + acceleratie;
 }
+
 bool Lista::CheckColiziuneBila(Bila* membru, Proiectil* obuz){
 	if (DistantaPatrat(obuz->GetCoordX(), membru->GetCoordX(), obuz->GetCoordY(), membru->GetCoordY()) <= pow((obuz->GetMarimeSpriteX() + (float)membru->GetMarimeSpriteX()) / 2, 2)) {
 		return true;
 	}
 	return false;
+}
+void Lista::CalculeazaAcceleratia(){
+	if (viteza == viteza_max) {
+		acceleratie = 0;
+	}
+	else if (viteza < viteza_max) {
+		acceleratie = 0.2;
+	}
+	else acceleratie = -0.2;
 }
 //parcurge lista si returneaza obiectul cu care s-a facut coliziunea
 Bila* Lista::TestColiziune(Proiectil* obuz){
