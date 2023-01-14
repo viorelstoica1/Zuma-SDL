@@ -25,7 +25,7 @@ int main( int argc, char* args[] )
 		Bila* biluta1 = new Bila(0,Rosu,0,GetRandomBila(TexturiBile), 8,latime/2,200,0);
 		Textura Crosshair(TexCrosshair,soricel.maus_x,soricel.maus_y,0);
 		Textura tex_fundal(TexFundal,0,0,0);
-		Tun Tunar(20,TexturiBile, TexTun,latime/2+latime/8,lungime-lungime/2,0);
+		Tun Tunar(10,TexturiBile, TexTun,latime/2+latime/8,lungime-lungime/2,0);
 		Textura FundalTun(Tun_fundal, Tunar.GetCoordX(), Tunar.GetCoordY(), Tunar.GetUnghi());
 		//printf("FUNDAL TUN X: %f Y: %f", FundalTun.GetCoordX(),FundalTun.GetCoordY());
 		Proiectil obuz(Ball, GetRandomBila(TexturiBile), Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
@@ -33,7 +33,7 @@ int main( int argc, char* args[] )
 
 		Tunar.SetProiectilCurent(&obuz);
 		Tunar.SetProiectilRezerva(&rezerva);
-		Lista ListaBile(Traseu,100, 20, 2);
+		Lista ListaBile(Traseu,20, 20, 1);
 		ListaBile.adaugaLaStangaListei(biluta1);
 		bool quit = false;//Main loop flag
 		SDL_Event e;//Event handler

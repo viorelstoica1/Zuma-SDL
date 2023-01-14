@@ -189,12 +189,14 @@ void StergereTraseu(GameObject* s) {
 //NETESTATA, POSIBIL SA NU MEARGA
 bool DirectieColiziune(GameObject* membru, GameObject* de_introdus) {
 	float x1, x2;
-	x1 = cos(membru->GetUnghi()) * membru->GetCoordX() - sin(membru->GetUnghi()) * membru->GetCoordY();
-	x2 = cos(membru->GetUnghi()) * de_introdus->GetCoordX() - sin(membru->GetUnghi()) * de_introdus->GetCoordY();
+	x1 = cos(membru->GetUnghi() * -1) * membru->GetCoordX() - sin(membru->GetUnghi() * -1) * membru->GetCoordY();
+	x2 = cos(membru->GetUnghi() * -1) * de_introdus->GetCoordX() - sin(membru->GetUnghi() * -1) * de_introdus->GetCoordY();
 	if (x1 > x2) {
+		printf("Obuzul rotit are pozitia %f iar bila rotita are pozitia %f, la unghiul %f, introduc in stanga", x2, x1, membru->GetUnghi() * 180 / 3.14);
 		return 0;//stanga
 	}
 	else {
+		printf("Obuzul rotit are pozitia %f iar bila rotita are pozitia %f, la unghiul %f, introduc in dreapta", x2, x1, membru->GetUnghi() * 180 / 3.14);
 		return 1;//dreapta
 	}
 }
