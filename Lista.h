@@ -42,6 +42,8 @@ public:
 	void StergeBileIdentice(Bila* membru);
 
 	void AnimatieInserare(Bila* membru);
+	//pentru initializat sirul 
+	Bila* CreeazaBilaRandom();
 };
 
 

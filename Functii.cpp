@@ -200,13 +200,24 @@ bool DirectieColiziune(GameObject* membru, GameObject* de_introdus) {
 	}
 }
 
-SDL_Texture* GetRandomBila(SDL_Texture** s) {
+SDL_Texture* GetRandomBila() {
 	int aux = rand() % 8;
 	printf("Random: %d\n", aux);
-	return s[aux];
+	bilute->NumarBile[aux]++;
+	return bilute->TexturiBile[aux];
 }
 
-void AlocareTexturi(SDL_Texture** &TexturiBile){
+SDL_Texture* GetRandomBilaExistenta()//pentru tun
+{
+	int aux = 0;
+	do {
+		aux = rand() % 8;
+	} while (bilute->NumarBile[aux] == 0);
+	printf("Random: %d, %d bile\n", aux,bilute->NumarBile[aux]);
+	return bilute->TexturiBile[aux];
+}
+
+void AlocareTexturi(){
 	SDL_Texture* TexBilaRosie = IMG_LoadTexture(gRenderer, "grafici/Bila_Rosu_Viorel-Sheet.png");
 	SDL_Texture* TexBilaNeagra = IMG_LoadTexture(gRenderer, "grafici/Bila_Negru_Viorel-Sheet.png");
 	SDL_Texture* TexBilaVerde = IMG_LoadTexture(gRenderer, "grafici/Bila_Verde_Viorel-Sheet.png");
@@ -215,39 +226,64 @@ void AlocareTexturi(SDL_Texture** &TexturiBile){
 	SDL_Texture* TexBilaAlb = IMG_LoadTexture(gRenderer, "grafici/Bila_Alb_Viorel-Sheet.png");
 	SDL_Texture* TexBilaGalben = IMG_LoadTexture(gRenderer, "grafici/Bila_Galben_Viorel-Sheet.png");
 	SDL_Texture* TexBilaPortocaliu = IMG_LoadTexture(gRenderer, "grafici/Bila_Portocaliu_Viorel-Sheet.png");
-	TexturiBile = new SDL_Texture*[8];
-	TexturiBile[0] = TexBilaAlbastru;
-	if (!TexturiBile[0])
+	bilute = new CuloriBile;
+	bilute->TexturiBile = new SDL_Texture*[8];
+	bilute->TexturiBile[0] = TexBilaAlbastru;
+	if (!bilute->TexturiBile[0])
 		printf("Nu am putut incarca culoarea 0 !\n");
-	TexturiBile[1] = TexBilaMov;
-	if (!TexturiBile[1])
+	bilute->TexturiBile[1] = TexBilaMov;
+	if (!bilute->TexturiBile[1])
 		printf("Nu am putut incarca culoarea 1\n");
-	TexturiBile[2] = TexBilaNeagra;
-	if (!TexturiBile[2])
+	bilute->TexturiBile[2] = TexBilaNeagra;
+	if (!bilute->TexturiBile[2])
 		printf("Nu am putut incarca culoarea 2\n");
-	TexturiBile[3] = TexBilaRosie;
-	if (!TexturiBile[3])
+	bilute->TexturiBile[3] = TexBilaRosie;
+	if (!bilute->TexturiBile[3])
 		printf("Nu am putut incarca culoarea 3\n");
-	TexturiBile[4] = TexBilaVerde;
-	if (!TexturiBile[4])
+	bilute->TexturiBile[4] = TexBilaVerde;
+	if (!bilute->TexturiBile[4])
 		printf("Nu am putut incarca culoarea 4\n");
-	TexturiBile[5] = TexBilaAlb;
-	if (!TexturiBile[5])
+	bilute->TexturiBile[5] = TexBilaAlb;
+	if (!bilute->TexturiBile[5])
 		printf("Nu am putut incarca culoarea 5\n");
-	TexturiBile[6] = TexBilaPortocaliu;
-	if (!TexturiBile[6])
+	bilute->TexturiBile[6] = TexBilaPortocaliu;
+	if (!bilute->TexturiBile[6])
 		printf("Nu am putut incarca culoarea 6\n");
-	TexturiBile[7] = TexBilaGalben;
-	if (!TexturiBile[7])
+	bilute->TexturiBile[7] = TexBilaGalben;
+	if (!bilute->TexturiBile[7])
 		printf("Nu am putut incarca culoarea 7\n");
+	bilute->NumarBile = new int[8];
+	for (int i = 0;i < 8;i++) {
+		bilute->NumarBile[i] = 0;
+	}
 }
 
-void DealocareTexturi(SDL_Texture** &s){
+void DealocareTexturi(){
 	for (int i = 0;i < 8;i++) {
-		SDL_DestroyTexture(s[i]);
-		s[i] = 0;
+		SDL_DestroyTexture(bilute->TexturiBile[i]);
+		bilute->TexturiBile[i] = 0;
 	}
-	delete[] s;
+	delete[] bilute->TexturiBile;
+	delete[] bilute->NumarBile;
+	delete bilute;
+}
+void CresteNumarBileExistente(SDL_Texture* p) {
+	int i;
+	for (i = 0;i < 8;i++) {
+		if (bilute->TexturiBile[i] == p) {
+			bilute->NumarBile[i]++;
+		}
+	}
+	printf("Am crescut nr de bile %d\n", i);
+}
+void ScadereNumarBileExistente(SDL_Texture* p){
+	int i;
+	for ( i = 0;i < 8;i++) {
+		if (bilute->TexturiBile[i] == p) {
+			bilute->NumarBile[i]--;
+		}
+	}
+	printf("Am scazut nr de bile %d\n", i);
 }
 
 

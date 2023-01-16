@@ -2,7 +2,7 @@
 #define _BILA_H
 
 #include"Spritesheet.h"
-
+#include"Functii.h"
 //enum culoare {
 //	Rosu,Albastru,Verde,Mov,Negru
 //};
@@ -20,8 +20,9 @@ public:
 		viteza = vit;
 		urmatoare = anterioara = 0;
 		inserare = lider = 0;
+		CresteNumarBileExistente(GetTex());
 	};
-	~Bila() { index = 0; };
+	~Bila() { index = 0; ScadereNumarBileExistente(this->GetTex()); };
 	int GetIndex() { return index; };
 	void SetIndex(int i) { index = i; };
 	float GetViteza() { return viteza; };

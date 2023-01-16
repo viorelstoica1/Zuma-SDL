@@ -23,7 +23,7 @@ void Tun::CicleazaProiectil(){
 	Proiectil* aux = p_curent;
 	p_curent = p_rezerva;
 	p_rezerva = aux;
-	p_rezerva->SetTex(GetRandomBila(lista_texturi));
+	p_rezerva->SetTex(GetRandomBilaExistenta());
 }
 
 void Tun::Update(mouse* soricel){
@@ -69,10 +69,10 @@ int Tun::GetVitezaTragere()
 	return viteza_tragere;
 }
 
-SDL_Texture** Tun::GetListaTexturi()
-{
-	return lista_texturi;
-}
+//SDL_Texture** Tun::GetListaTexturi()
+//{
+//	return lista_texturi;
+//}
 
 void Tun::RenderProiectile(){
 	p_curent->RenderCenter();
