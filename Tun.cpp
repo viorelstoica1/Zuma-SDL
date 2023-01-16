@@ -32,8 +32,8 @@ void Tun::Update(mouse* soricel){
 		aux += 6.28;
 	}
 	if (gata_de_tras) {
-		p_curent->SetCoordX(this->GetCoordX() + cos(aux) * 35);
-		p_curent->SetCoordY(this->GetCoordY() + sin(aux) * 35);
+		p_curent->SetCoordX(this->GetCoordX() + cos(aux) * 50);
+		p_curent->SetCoordY(this->GetCoordY() + sin(aux) * 50);
 		p_curent->SetUnghi(aux);
 	}
 	p_rezerva->SetCoordX(this->GetCoordX() - cos(aux) * 15);

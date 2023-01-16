@@ -34,3 +34,23 @@ int Bila::GetNumar(){
 void Bila::SetNumar(int i){
 	index = i;
 }
+
+bool Bila::IsLider()
+{
+	return lider;
+}
+
+void Bila::SetLider(bool i)
+{
+	lider = i;
+}
+
+bool Bila::IsInserare()
+{
+	return inserare;
+}
+
+void Bila::SetInserare(bool i)
+{
+	inserare = i;
+}

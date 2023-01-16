@@ -77,7 +77,7 @@ void Lista::RenderList(){
 void Lista::Update(Tun* Tunar){
 	static int de_introdus_original = de_introdus;
 	static float viteza_curenta = viteza, viteza_max_curenta = viteza_max;
-	Bila* index = Cap, *coliziune = 0;
+	Bila* index = Cap, *coliziune = 0;//bila dupa care s-a facut coliziune
 	bool collided = 0;
 	if (index->GetIndex()>=index->GetMarimeSpriteX() && de_introdus) {
 		this->adaugaLaStangaListei(this->CreeazaBila(Tunar->GetProiectilIncarcat()));
@@ -86,8 +86,6 @@ void Lista::Update(Tun* Tunar){
 		de_introdus--;
 	}
 	while (index) {
-		index->UpdateSprite();
-		index->CresteNumar(viteza);
 		if (collided) {//nu stiu unde trebuie sincer
 			index->CresteNumar(index->GetMarimeSpriteX());
 		}
@@ -96,27 +94,24 @@ void Lista::Update(Tun* Tunar){
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
 			coliziune = noua;
 			if (this->adaugaPeElement(index, noua)) {//dreapta
-				//mutam noua bila la locul ei
-				noua->SetIndex(index->GetIndex() -viteza /*+ index->GetMarimeSpriteX()*/ );
+				noua->SetIndex(index->GetIndex());
 				printf("Coliziune dreapta!\n");
-				//index = noua;
 			}
 			else {//stanga
-				noua->SetIndex(index->GetIndex() );//plus viteza sirului, 1 temporar
+				noua->SetIndex(index->GetIndex());
 				printf("Coliziune stanga!\n");
 				index->ScadeNumar(viteza);
 				index = noua;
 			}
-			//index = index->GetBilaDreapta();
-			//index = noua;
 			noua->Copiaza(&traseu[noua->GetIndex()]);
 			Tunar->TerminatTras();
 			collided = 1;
 		}
-		//index->CresteNumar(1);//pozitia lui CresteNumar posibil inainte de coliziune
 		if (index->GetIndex() > 7000) {
 			index->SetIndex(0);
 		}
+		index->UpdateSprite();
+		index->CresteNumar(viteza);
 		index = index->GetBilaDreapta();
 	}
 	if (coliziune) {

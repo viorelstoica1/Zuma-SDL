@@ -16,7 +16,7 @@ int main( int argc, char* args[] )
 		mouse soricel{ 0, 0 };	//coordonatele mouse-ului pe fereastra, sunt setate de SDL_GetMouseState
 		SDL_Texture* TexCrosshair = IMG_LoadTexture(gRenderer, "grafici/Crosshair.png");
 		SDL_Texture* TexFundal = IMG_LoadTexture(gRenderer, "grafici/Background_1.png");
-		SDL_Texture* TexTun = IMG_LoadTexture(gRenderer, "grafici/Cannon_hole.png");
+		SDL_Texture* TexTun = IMG_LoadTexture(gRenderer, "grafici/Cannon_no_shade.png");
 		SDL_Texture* Tun_fundal = IMG_LoadTexture(gRenderer, "grafici/Cannon.png");
 
 		AlocareTexturi(TexturiBile);
@@ -25,7 +25,7 @@ int main( int argc, char* args[] )
 		Bila* biluta1 = new Bila(0,Rosu,0,GetRandomBila(TexturiBile), 8,latime/2,200,0);
 		Textura Crosshair(TexCrosshair,soricel.maus_x,soricel.maus_y,0);
 		Textura tex_fundal(TexFundal,0,0,0);
-		Tun Tunar(10,TexturiBile, TexTun,latime/2+latime/8,lungime-lungime/2,0);
+		Tun Tunar(15,TexturiBile, TexTun,latime/2+latime/8,lungime-lungime/2,0);
 		Textura FundalTun(Tun_fundal, Tunar.GetCoordX(), Tunar.GetCoordY(), Tunar.GetUnghi());
 		//printf("FUNDAL TUN X: %f Y: %f", FundalTun.GetCoordX(),FundalTun.GetCoordY());
 		Proiectil obuz(Ball, GetRandomBila(TexturiBile), Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
@@ -33,7 +33,7 @@ int main( int argc, char* args[] )
 
 		Tunar.SetProiectilCurent(&obuz);
 		Tunar.SetProiectilRezerva(&rezerva);
-		Lista ListaBile(Traseu,20, 20, 1);
+		Lista ListaBile(Traseu,40, 20, 1.5);
 		ListaBile.adaugaLaStangaListei(biluta1);
 		bool quit = false;//Main loop flag
 		SDL_Event e;//Event handler

@@ -12,12 +12,14 @@ private:
 	float viteza;//prefer viteza asa pentru a putea itera prin vectorul de pozitii 
 	culoare _culoare;//pentru a testa egalitatea intre bile
 	Bila* urmatoare, *anterioara;
+	bool inserare, lider;
 public:
 	Bila(float vit,culoare c,int i,/*const char**/ SDL_Texture* s, unsigned int nrcadre, float poz_x, float poz_y, float angel) : Spritesheet(s, nrcadre, poz_x, poz_y, angel) , GameObject(poz_x, poz_y, angel) {
 		_culoare = c;
 		index = i;
 		viteza = vit;
 		urmatoare = anterioara = 0;
+		inserare = lider = 0;
 	};
 	~Bila() { index = 0; };
 	int GetIndex() { return index; };
@@ -33,6 +35,10 @@ public:
 	void ScadeNumar(int i);
 	int GetNumar();
 	void SetNumar(int i);
+	bool IsLider();
+	void SetLider(bool i);
+	bool IsInserare();
+	void SetInserare(bool i);
 };
 
 
