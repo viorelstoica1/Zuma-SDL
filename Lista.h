@@ -29,12 +29,19 @@ public:
 	bool adaugaPeElement(Bila* membru, Bila* de_introdus);
 	//functie stergere elemente listaa
 	void StergereLista();
+	//oare
 	void RenderList();
-	void Update(Tun* Tunar);
+	int Update(Tun* Tunar);
+	//verifica coliziunea
 	bool CheckColiziuneBila(Bila* membru, Proiectil* obuz);
+	//calculeaza acceleratia sirului bazata pe viteza si viteza maxima
 	void CalculeazaAcceleratia(float viteza, float viteza_max);
+	//verifica daca 3 sau mai multe bile identice sunt una langa cealalta
 	int Check3Bile(Bila* membru);
+	
 	void StergeBileIdentice(Bila* membru);
+
+	void AnimatieInserare(Bila* membru);
 };
 
 

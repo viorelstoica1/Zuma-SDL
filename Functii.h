@@ -28,4 +28,6 @@ SDL_Texture* GetRandomBila(SDL_Texture** s);
 void AlocareTexturi(SDL_Texture** &s);
 
 void DealocareTexturi(SDL_Texture** &s);
+
+
 #endif

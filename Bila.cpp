@@ -45,7 +45,7 @@ void Bila::SetLider(bool i)
 	lider = i;
 }
 
-bool Bila::IsInserare()
+bool Bila::GetInserare()
 {
 	return inserare;
 }

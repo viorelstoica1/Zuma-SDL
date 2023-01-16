@@ -74,11 +74,18 @@ void Lista::RenderList(){
 	}
 }
 
-void Lista::Update(Tun* Tunar){
+
+int Lista::Update(Tun* Tunar){
 	static int de_introdus_original = de_introdus;
+	static int winlose = 1;
 	static float viteza_curenta = viteza, viteza_max_curenta = viteza_max;
-	Bila* index = Cap, *coliziune = 0;//bila dupa care s-a facut coliziune
+	Bila* index = Cap;
+	static Bila* coliziune = 0;//bila dupa care s-a facut coliziune
 	bool collided = 0;
+	if (!index) {
+		return winlose;
+	}
+	//pentru inceputul nivelului
 	if (index->GetIndex()>=index->GetMarimeSpriteX() && de_introdus) {
 		this->adaugaLaStangaListei(this->CreeazaBila(Tunar->GetProiectilIncarcat()));
 		Cap->SetTex(GetRandomBila(Tunar->GetListaTexturi()));
@@ -86,42 +93,41 @@ void Lista::Update(Tun* Tunar){
 		de_introdus--;
 	}
 	while (index) {
-		if (collided) {//nu stiu unde trebuie sincer
-			index->CresteNumar(index->GetMarimeSpriteX());
+		if (collided && index->GetInserare() == 0) {//nu stiu unde trebuie sincer
+			index->CresteNumar(index->GetMarimeSpriteX() / 8);//10 de la numarul de cadre al animatiei de inserare
 		}
-		index->Copiaza(&traseu[index->GetIndex()]);
+		if (index->GetInserare() == 1) {
+			AnimatieInserare(index);
+			if (index->GetInserare() == 1) {
+				collided = 1;
+			}
+		}
+		else {
+			index->Copiaza(&traseu[index->GetIndex()]);//NU MISCA ASTA
+		}
+
 		if (CheckColiziuneBila(index, Tunar->GetProiectilIncarcat())) {
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
 			coliziune = noua;
 			if (this->adaugaPeElement(index, noua)) {//dreapta
-				noua->SetIndex(index->GetIndex());
-				printf("Coliziune dreapta!\n");
+				noua->SetIndex(index->GetIndex()+index->GetMarimeSpriteX());
 			}
 			else {//stanga
 				noua->SetIndex(index->GetIndex());
-				printf("Coliziune stanga!\n");
-				index->ScadeNumar(viteza);
 				index = noua;
 			}
-			noua->Copiaza(&traseu[noua->GetIndex()]);
+
 			Tunar->TerminatTras();
-			collided = 1;
+			//collided = 1;
+			noua->SetInserare(1);
 		}
-		if (index->GetIndex() > 7000) {
-			index->SetIndex(0);
-		}
+
 		index->UpdateSprite();
 		index->CresteNumar(viteza);
 		index = index->GetBilaDreapta();
 	}
-	if (coliziune) {
-		int nr_bile_identice = Check3Bile(coliziune);
-		printf("Sunt %d bile de aceeasi culoare\n", nr_bile_identice);
-		if (nr_bile_identice >= 3) {
-			StergeBileIdentice(coliziune);
-		}
-	}
-	frame++;
+
+	frame+= viteza;
 	if (frame >= Cap->GetNrCadre() * 8) {
 		frame = 0;
 	}
@@ -131,9 +137,32 @@ void Lista::Update(Tun* Tunar){
 	if (Coada->GetIndex() >= 6000) {
 		viteza_max_curenta = 1;
 	}
+	if (Coada->GetIndex() >= 6650) {
+		viteza_max_curenta = 20;
+	}
+	if (Coada->GetIndex() >= 6700) {
+		stergeBila(Coada);
+		winlose = -1;
+	}
+
+
+	if (coliziune) {
+		if (coliziune->GetInserare() == 0) {
+			int nr_bile_identice = Check3Bile(coliziune);
+			printf("Sunt %d bile de aceeasi culoare\n", nr_bile_identice);
+			if (nr_bile_identice >= 3) {
+				StergeBileIdentice(coliziune);
+			}
+			coliziune = 0;
+		}
+	}
+
+
+
 	CalculeazaAcceleratia(viteza_curenta,viteza_max_curenta);
 	viteza_curenta = viteza_curenta + acceleratie;
 	viteza = viteza_curenta;
+	return 0;
 }
 
 bool Lista::CheckColiziuneBila(Bila* membru, Proiectil* obuz){
@@ -212,6 +241,21 @@ void Lista::StergeBileIdentice(Bila* membru){
 	stergeBila(membru);
 	printf("Am sters %d bile\n", nr);
 }
+//animeaza inserarea bilei in sir
+void Lista::AnimatieInserare(Bila* membru){
+	static int cadre = 8;
+	if (cadre == 0) {
+		membru->SetInserare(0);
+		cadre = 8;
+	}
+	else {
+		float x = (traseu[membru->GetIndex()].GetCoordX() - membru->GetCoordX()) / (float)cadre;
+		float y = (traseu[membru->GetIndex()].GetCoordY() - membru->GetCoordY()) / (float)cadre;
+		membru->SetCoordX(membru->GetCoordX() + x);
+		membru->SetCoordY(membru->GetCoordY() + y);
+		cadre--;
+	}
+}
 //parcurge lista si returneaza obiectul cu care s-a facut coliziunea
 Bila* Lista::TestColiziune(Proiectil* obuz){
 	Bila* index = Cap;
@@ -224,28 +268,30 @@ Bila* Lista::TestColiziune(Proiectil* obuz){
 	}
 	return index;//returnare coliziune gasita
 }
-
+//sterge o bila din lista si reface legaturile
 void Lista::stergeBila(Bila* membru){
-	if (membru->GetBilaStanga()){
-		membru->GetBilaStanga()->SetBilaDreapta(membru->GetBilaDreapta());
+	if (membru) {
+		if (membru->GetBilaStanga()) {
+			membru->GetBilaStanga()->SetBilaDreapta(membru->GetBilaDreapta());
+		}
+		else {
+			Cap = membru->GetBilaDreapta();
+		}
+		if (membru->GetBilaDreapta()) {
+			membru->GetBilaDreapta()->SetBilaStanga(membru->GetBilaStanga());
+		}
+		else {
+			Coada = membru->GetBilaStanga();
+		}
+		membru->SetBilaDreapta(0);
+		membru->SetBilaStanga(0);
+		delete membru;
+		membru = 0;
 	}
-	else {
-		Cap = membru->GetBilaDreapta();
-	}
-	if (membru->GetBilaDreapta()){
-		membru->GetBilaDreapta()->SetBilaStanga(membru->GetBilaStanga());
-	}
-	else {
-		Coada = membru->GetBilaStanga();
-	}
-	membru->SetBilaDreapta(0);
-	membru->SetBilaStanga(0);
-	delete membru;
-	membru = 0;
 }
 
 Bila* Lista::CreeazaBila(Proiectil* obuz){
-	Bila* aux = new Bila(0, Rosu, 0, obuz->GetTex(), 8, obuz->GetCoordX(), obuz->GetCoordY(),obuz->GetUnghi());
+	Bila* aux = new Bila(0, /*Rosu,*/ 0, obuz->GetTex(), 8, obuz->GetCoordX(), obuz->GetCoordY(),obuz->GetUnghi());
 	return aux;
 	printf("Am creat o bila\n");
 }

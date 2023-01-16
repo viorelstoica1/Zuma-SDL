@@ -10,30 +10,29 @@ int main( int argc, char* args[] )
 		printf( "Failed to initialize!\n" );
 	}
 	else {
-		SDL_Rect poz_randat = { 0,0,0,0 };//structura intermediara folosita la toate randarile
 		GameObject* Traseu = 0;
+		AlocareTraseuBile(Traseu);
 		SDL_Texture** TexturiBile = 0;
+		AlocareTexturi(TexturiBile);
+		int gamestate = 0;//statusul jocului, 1 castigat, 0 ongoing, -1 pierdut
 		mouse soricel{ 0, 0 };	//coordonatele mouse-ului pe fereastra, sunt setate de SDL_GetMouseState
 		SDL_Texture* TexCrosshair = IMG_LoadTexture(gRenderer, "grafici/Crosshair.png");
 		SDL_Texture* TexFundal = IMG_LoadTexture(gRenderer, "grafici/Background_1.png");
 		SDL_Texture* TexTun = IMG_LoadTexture(gRenderer, "grafici/Cannon_no_shade.png");
 		SDL_Texture* Tun_fundal = IMG_LoadTexture(gRenderer, "grafici/Cannon.png");
 
-		AlocareTexturi(TexturiBile);
-		AlocareTraseuBile(Traseu);
 		SDL_GetMouseState(&soricel.maus_x, &soricel.maus_y);//setare coordonate pentru crosshair inainte de randarea primului frame
-		Bila* biluta1 = new Bila(0,Rosu,0,GetRandomBila(TexturiBile), 8,latime/2,200,0);
+		Bila* biluta1 = new Bila(0,/*Rosu,*/0,GetRandomBila(TexturiBile), 8,latime/2,200,0);
 		Textura Crosshair(TexCrosshair,soricel.maus_x,soricel.maus_y,0);
 		Textura tex_fundal(TexFundal,0,0,0);
 		Tun Tunar(15,TexturiBile, TexTun,latime/2+latime/8,lungime-lungime/2,0);
 		Textura FundalTun(Tun_fundal, Tunar.GetCoordX(), Tunar.GetCoordY(), Tunar.GetUnghi());
-		//printf("FUNDAL TUN X: %f Y: %f", FundalTun.GetCoordX(),FundalTun.GetCoordY());
 		Proiectil obuz(Ball, GetRandomBila(TexturiBile), Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
 		Proiectil rezerva(Ball, GetRandomBila(TexturiBile), Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
 
 		Tunar.SetProiectilCurent(&obuz);
 		Tunar.SetProiectilRezerva(&rezerva);
-		Lista ListaBile(Traseu,40, 20, 1.5);
+		Lista ListaBile(Traseu,20, 20, 1.75);
 		ListaBile.adaugaLaStangaListei(biluta1);
 		bool quit = false;//Main loop flag
 		SDL_Event e;//Event handler
@@ -58,8 +57,15 @@ int main( int argc, char* args[] )
 				}
 			}
 			Tunar.Update(&soricel);
-
-			ListaBile.Update(&Tunar);
+			gamestate = ListaBile.Update(&Tunar);
+			if (gamestate) {
+				if (gamestate == 1) {
+					printf("Joc castigat\n");
+				}
+				else {
+					printf("Joc pierdut\n");
+				}
+			}
 			SDL_RenderClear(gRenderer);	//Clear screen
 			tex_fundal.Render();
 			FundalTun.SetUnghi(Tunar.GetUnghi());
