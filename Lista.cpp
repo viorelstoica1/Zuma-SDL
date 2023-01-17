@@ -86,13 +86,12 @@ int Lista::Update(Tun* Tunar){
 	if (!index) {//daca nu mai sunt bile in sir
 		coliziune = 0;
 		viteza_max_curenta = viteza_max;
-		if (winlose) {
+		if (winlose == 1) {
 			scena = 3;
 		}
-		else {
+		else if(winlose == -1){
 			scena = 4;
 		}
-		winlose = 1;
 		return winlose;
 	}
 	//pentru inceputul nivelului
