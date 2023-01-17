@@ -8,6 +8,7 @@
 SDL_Window* gWindow = NULL;//The window we'll be rendering to
 SDL_Renderer* gRenderer = NULL;//The window renderer
 int frame = 0;
+int nr_culori;
 int latime = 0, lungime = 0;//marime ecran creat, setate de functia init
 bool init(int& latime, int& lungime)	//Initialize SDL
 {
@@ -201,7 +202,7 @@ bool DirectieColiziune(GameObject* membru, GameObject* de_introdus) {
 }
 
 SDL_Texture* GetRandomBila() {
-	int aux = rand() % 8;
+	int aux = rand() % nr_culori;
 	printf("Random: %d\n", aux);
 	bilute->NumarBile[aux]++;
 	return bilute->TexturiBile[aux];
@@ -211,7 +212,7 @@ SDL_Texture* GetRandomBilaExistenta()//pentru tun
 {
 	int aux = 0;
 	do {
-		aux = rand() % 8;
+		aux = rand() % nr_culori;
 	} while (bilute->NumarBile[aux] == 0);
 	printf("Random: %d, %d bile\n", aux,bilute->NumarBile[aux]);
 	return bilute->TexturiBile[aux];
@@ -267,18 +268,20 @@ void DealocareTexturi(){
 	delete[] bilute->NumarBile;
 	delete bilute;
 }
+
 void CresteNumarBileExistente(SDL_Texture* p) {
 	int i;
-	for (i = 0;i < 8;i++) {
+	for (i = 0;i < nr_culori;i++) {
 		if (bilute->TexturiBile[i] == p) {
 			bilute->NumarBile[i]++;
 		}
 	}
 	printf("Am crescut nr de bile %d\n", i);
 }
+
 void ScadereNumarBileExistente(SDL_Texture* p){
 	int i;
-	for ( i = 0;i < 8;i++) {
+	for ( i = 0;i < nr_culori;i++) {
 		if (bilute->TexturiBile[i] == p) {
 			bilute->NumarBile[i]--;
 		}

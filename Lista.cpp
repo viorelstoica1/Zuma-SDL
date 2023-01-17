@@ -1,6 +1,7 @@
 #include"Lista.h"
 #include"Functii.h"
 extern int frame;
+extern int scena;
 void Lista::adaugaLaStangaListei(Bila* de_introdus){
 	de_introdus->SetBilaDreapta(Cap);
 	if (Cap) {//daca lista nu e goala
@@ -76,13 +77,16 @@ void Lista::RenderList(){
 
 
 int Lista::Update(Tun* Tunar){
-	static int de_introdus_original = de_introdus;
+	static const int de_introdus_original = de_introdus;
 	static int winlose = 1;
-	static float viteza_curenta = viteza, viteza_max_curenta = viteza_max;
+	static float viteza_max_curenta = viteza_max;
 	Bila* index = Cap;
 	static Bila* coliziune = 0;//bila dupa care s-a facut coliziune
 	bool collided = 0;
 	if (!index) {
+		scena = 0;
+		coliziune = 0;
+		viteza_max_curenta = viteza_max;
 		return winlose;
 	}
 	//pentru inceputul nivelului
@@ -159,9 +163,8 @@ int Lista::Update(Tun* Tunar){
 
 
 
-	CalculeazaAcceleratia(viteza_curenta,viteza_max_curenta);
-	viteza_curenta = viteza_curenta + acceleratie;
-	viteza = viteza_curenta;
+	CalculeazaAcceleratia(viteza,viteza_max_curenta);
+	viteza = viteza + acceleratie;
 	return 0;
 }
 
