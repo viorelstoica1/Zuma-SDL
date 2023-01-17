@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<cstdlib>
 #include"GameObject.h"
+#include <time.h>
 SDL_Window* gWindow = NULL;//The window we'll be rendering to
 SDL_Renderer* gRenderer = NULL;//The window renderer
 int frame = 0;

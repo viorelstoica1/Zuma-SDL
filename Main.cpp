@@ -7,6 +7,7 @@ CuloriBile* bilute;
 extern int nr_culori;
 int main( int argc, char* args[] )
 {
+	srand(time(NULL));
 	//Start up SDL and create window
 	if( !init(latime,lungime) ){//latime si lungime nu sunt folositi ca parametri, returneaza marimea ecranului generat
 		printf( "Failed to initialize!\n" );
