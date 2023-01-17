@@ -83,7 +83,7 @@ int Lista::Update(Tun* Tunar){
 	Bila* index = Cap;
 	static Bila* coliziune = 0;//bila dupa care s-a facut coliziune
 	bool collided = 0;
-	if (!index) {
+	if (!index) {//daca nu mai sunt bile in sir
 		scena = 0;
 		coliziune = 0;
 		viteza_max_curenta = viteza_max;

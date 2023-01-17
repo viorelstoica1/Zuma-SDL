@@ -2,7 +2,7 @@
 extern SDL_Window* gWindow;//The window we'll be rendering to
 extern SDL_Renderer* gRenderer;//The window renderer
 extern int latime, lungime;
-int scena = 0;//0 meniu, 1 controale, 2 joc, 3 joc castigat, 4 joc pierdut
+int scena = 0;//0 meniu, 1 controale, 2 joc
 CuloriBile* bilute;
 extern int nr_culori;
 int main( int argc, char* args[] )
@@ -97,7 +97,7 @@ int main( int argc, char* args[] )
 
 				break;
 			case 2://joc
-			{	
+			{
 				SDL_ShowCursor(SDL_DISABLE);
 				GameObject* Traseu = 0;
 				AlocareTraseuBile(Traseu);
@@ -106,7 +106,7 @@ int main( int argc, char* args[] )
 
 				SDL_GetMouseState(&soricel.maus_x, &soricel.maus_y);//setare coordonate pentru crosshair inainte de randarea primului frame
 				Bila* biluta1 = new Bila(0, 0, GetRandomBila(), 8, latime / 2, 200, 0);
-				Lista ListaBile(Traseu, 50, 20, 1.75);
+				Lista ListaBile(Traseu, 75, 20, 2);
 				ListaBile.adaugaLaStangaListei(biluta1);
 				Textura Crosshair(TexCrosshair, soricel.maus_x, soricel.maus_y, 0);
 				Textura tex_fundal(TexFundal, 0, 0, 0);
@@ -159,27 +159,16 @@ int main( int argc, char* args[] )
 					Crosshair.Render();
 					Tunar.RenderCenter();
 					SDL_RenderPresent(gRenderer);	//Update screen
-			}
-			scena = 0;
-			SDL_ShowCursor(SDL_ENABLE);
-			ListaBile.StergereLista();
-			StergereTraseu(Traseu);
-			DealocareTexturi();
+				}
+				scena = 0;
+				SDL_ShowCursor(SDL_ENABLE);
+				ListaBile.StergereLista();
+				StergereTraseu(Traseu);
+				DealocareTexturi();
 
-			break;
-			}
-			case 3://joc castigat
-				SDL_ShowCursor(SDL_ENABLE);
-				scena = 0;//TEMPORAR
-				break;
-			case 4://joc pierdut
-				SDL_ShowCursor(SDL_ENABLE);
-				scena = 0;//TEMPORAR
 				break;
 			}
-			
-
-			
+			}
 		}
 		SDL_DestroyTexture(TexCrosshair);
 		SDL_DestroyTexture(TexFundal);

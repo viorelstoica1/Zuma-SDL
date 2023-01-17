@@ -102,8 +102,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\proiecte\Proiject c++\SDL2_image-2.6.2\lib\x64;C:\proiecte\Proiject c++\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\proiecte\Proiject c++\SDL2_image-2.6.2\include;C:\proiecte\Proiject c++\SDL2-2.26.1;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\SDL2_image-2.6.2\lib\x64;$(ProjectDir)\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\SDL2_image-2.6.2\include;$(ProjectDir)\SDL2-2.26.1;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -145,13 +145,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\proiecte\Proiject c++\SDL2-2.26.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\SDL2-2.26.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\proiecte\Proiject c++\SDL2-2.26.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\SDL2-2.26.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
