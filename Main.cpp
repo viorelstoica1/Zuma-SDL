@@ -13,7 +13,7 @@ int main( int argc, char* args[] )
 		printf( "Failed to initialize!\n" );
 	}
 	else {
-		printf("Bau\n");
+		printf("Da-mi aia 20 de centi inapoi\n");
 		SDL_Texture* TexMeniu = IMG_LoadTexture(gRenderer, "grafici/Meniu.png");
 		SDL_Texture* TexWin = IMG_LoadTexture(gRenderer, "grafici/Win.png");
 		SDL_Texture* TexLose = IMG_LoadTexture(gRenderer, "grafici/Lose.png");
