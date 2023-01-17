@@ -111,7 +111,7 @@ int main( int argc, char* args[] )
 
 				SDL_GetMouseState(&soricel.maus_x, &soricel.maus_y);//setare coordonate pentru crosshair inainte de randarea primului frame
 				Bila* biluta1 = new Bila(0, 0, GetRandomBila(), 8, latime / 2, 200, 0);
-				Lista ListaBile(Traseu, 5, 20, 2);
+				Lista ListaBile(Traseu, 75, 20, 2);
 				ListaBile.adaugaLaStangaListei(biluta1);
 				Textura Crosshair(TexCrosshair, soricel.maus_x, soricel.maus_y, 0);
 				Textura tex_fundal(TexFundal, 0, 0, 0);
