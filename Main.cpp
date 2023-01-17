@@ -14,6 +14,8 @@ int main( int argc, char* args[] )
 	}
 	else {
 		SDL_Texture* TexMeniu = IMG_LoadTexture(gRenderer, "grafici/Meniu.png");
+		SDL_Texture* TexWin = IMG_LoadTexture(gRenderer, "grafici/Win.png");
+		SDL_Texture* TexLose = IMG_LoadTexture(gRenderer, "grafici/Lose.png");
 		SDL_Texture* TexControale = IMG_LoadTexture(gRenderer, "grafici/Controale.png");
 		SDL_Texture* TexCrosshair = IMG_LoadTexture(gRenderer, "grafici/Crosshair.png");
 		SDL_Texture* TexFundal = IMG_LoadTexture(gRenderer, "grafici/Background_1.png");
@@ -32,6 +34,7 @@ int main( int argc, char* args[] )
 			{
 			case 0://meniu
 				SDL_RenderClear(gRenderer);
+				Meniu.SetTex(TexMeniu);
 				Meniu.Render();
 				SDL_RenderPresent(gRenderer);	//Update screen
 				SDL_ShowCursor(SDL_ENABLE);
@@ -161,7 +164,9 @@ int main( int argc, char* args[] )
 					Tunar.RenderCenter();
 					SDL_RenderPresent(gRenderer);	//Update screen
 				}
-				scena = 0;
+				if (scena != 3 && scena != 4) {
+					scena = 0;
+				}
 				SDL_ShowCursor(SDL_ENABLE);
 				ListaBile.StergereLista();
 				StergereTraseu(Traseu);
@@ -169,6 +174,54 @@ int main( int argc, char* args[] )
 
 				break;
 			}
+			case 3://win
+				SDL_RenderClear(gRenderer);
+				Meniu.SetTex(TexWin);
+				Meniu.Render();
+				SDL_RenderPresent(gRenderer);	//Update screen
+				SDL_ShowCursor(SDL_ENABLE);
+				while (SDL_PollEvent(&e) != 0) {//Handle events on queue
+					if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {//User requests quit
+						scena = 0;
+					}
+					if (e.type == SDL_MOUSEMOTION) {//A miscat soricelu
+						soricel.maus_x = e.motion.x;
+						soricel.maus_y = e.motion.y;
+					}
+					if (e.type == SDL_MOUSEBUTTONDOWN) {//click? cred?
+						if (e.button.button == SDL_BUTTON_LEFT) {
+							if (soricel.maus_x >= 800 && soricel.maus_x <= 1000 && soricel.maus_y >= 720 && soricel.maus_y <= 820) {
+								//buton meniu
+								scena = 0;
+							}
+						}
+					}
+				}
+				break;
+			case 4://lose
+				SDL_RenderClear(gRenderer);
+				Meniu.SetTex(TexLose);
+				Meniu.Render();
+				SDL_RenderPresent(gRenderer);	//Update screen
+				SDL_ShowCursor(SDL_ENABLE);
+				while (SDL_PollEvent(&e) != 0) {//Handle events on queue
+					if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {//User requests quit
+						scena = 0;
+					}
+					if (e.type == SDL_MOUSEMOTION) {//A miscat soricelu
+						soricel.maus_x = e.motion.x;
+						soricel.maus_y = e.motion.y;
+					}
+					if (e.type == SDL_MOUSEBUTTONDOWN) {//click? cred?
+						if (e.button.button == SDL_BUTTON_LEFT) {
+							if (soricel.maus_x >= 800 && soricel.maus_x <= 1000 && soricel.maus_y >= 720 && soricel.maus_y <= 820) {
+								//buton meniu
+								scena = 0;
+							}
+						}
+					}
+				}
+				break;
 			}
 		}
 		SDL_DestroyTexture(TexCrosshair);

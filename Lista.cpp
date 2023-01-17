@@ -84,9 +84,14 @@ int Lista::Update(Tun* Tunar){
 	static Bila* coliziune = 0;//bila dupa care s-a facut coliziune
 	bool collided = 0;
 	if (!index) {//daca nu mai sunt bile in sir
-		scena = 0;
 		coliziune = 0;
 		viteza_max_curenta = viteza_max;
+		if (winlose) {
+			scena = 3;
+		}
+		else {
+			scena = 4;
+		}
 		return winlose;
 	}
 	//pentru inceputul nivelului
