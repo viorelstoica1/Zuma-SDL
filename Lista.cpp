@@ -92,6 +92,7 @@ int Lista::Update(Tun* Tunar){
 		else {
 			scena = 4;
 		}
+		winlose = 1;
 		return winlose;
 	}
 	//pentru inceputul nivelului
