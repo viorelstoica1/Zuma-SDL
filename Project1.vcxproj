@@ -103,7 +103,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)\SDL2_image-2.6.2\lib\x64;$(ProjectDir)\SDL2-2.26.1\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)\SDL2_image-2.6.2\include;$(ProjectDir)\SDL2-2.26.1;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\SDL2_image-2.6.2\include;$(ProjectDir)\SDL2-2.26.1\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
