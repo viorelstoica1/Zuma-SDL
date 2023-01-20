@@ -287,37 +287,80 @@ void CresteNumarBileExistente(SDL_Texture* p) {
 void CitireConfig(const char* configname, int& nr_bile, float& viteza_sir_intrare, float& viteza_sir_generala, float& viteza_proiectil_tun)
 {
 	//o linie din config
-	std::string linie_config;
+	std::string linie_config, aux;
 	// Read from the text file
 	std::ifstream configu(configname);
 	if (configu.is_open()) {
 		printf("Am gasit configurarile!\n");
-		// Use a while loop together with the getline() function to read the file line by line
-		while (getline(configu, linie_config,' ') /*&& !configu.eof()*/) {
-			std::cout << linie_config<<std::endl;
-			if (linie_config.compare("viteza_sir_intrare") == 0) {
-				configu >> viteza_sir_intrare;
-				printf("Viteza de intrare citita este %f\n", viteza_sir_intrare);
-				getline(configu, linie_config);
-			}
-			else if (linie_config.compare("viteza_sir_generala") == 0) {
-				configu >> viteza_sir_generala;
-				printf("Viteza de sir generala este %f\n", viteza_sir_generala);
-				getline(configu, linie_config);
-			}
-			else if (linie_config.compare("viteza_proiectil_tun") == 0) {
-				configu >> viteza_proiectil_tun;
-				printf("Viteza de proiectil tun este %f\n", viteza_proiectil_tun);
-				getline(configu, linie_config);
-			}
-			else if (linie_config.compare("nr_bile") == 0) {
-				configu >> nr_bile;
-				printf("Numarul de bile este %d\n", nr_bile);
-				getline(configu, linie_config);
-			}
-			std::cout << "\nUrmatorul sir:\n";
-		}
+		std::string aux;
+		while (getline(configu, linie_config,' ')) {
+			//std::cout << linie_config<<std::endl;
+			try {
+				if (linie_config.compare("viteza_sir_intrare") == 0) {
+					getline(configu, aux);
+					try {
+						viteza_sir_intrare = std::stof(aux);
+						if (viteza_sir_intrare <= 0) {
+							throw (std::invalid_argument(std::to_string(viteza_sir_intrare)));
+						}
+						printf("Viteza de intrare citita este %f\n", viteza_sir_intrare);
+					}
+					catch (std::invalid_argument){
+						printf("Argument invalid pentru viteza_sir_intrare, default la 20!\n");
+						viteza_sir_intrare = 20;
+					}
+				}
+				else if (linie_config.compare("viteza_sir_generala") == 0) {
+					getline(configu, aux);
+					try {
+						viteza_sir_generala = std::stof(aux);
+						if (viteza_sir_generala <= 0) {
+							throw (std::invalid_argument(std::to_string(viteza_sir_generala)));
+						}
+						printf("Viteza de sir generala este %f\n", viteza_sir_generala);
+					}
+					catch (std::invalid_argument) {
+						printf("Argument invalid pentru viteza_sir_generala, default la 3!\n");
+						viteza_sir_generala = 3;
+					}
 
+
+				}
+				else if (linie_config.compare("viteza_proiectil_tun") == 0) {
+					getline(configu, aux);
+					try {
+						viteza_proiectil_tun = std::stof(aux);
+						if (viteza_proiectil_tun <= 0) {
+							throw (std::invalid_argument(std::to_string(viteza_proiectil_tun)));
+						}
+						printf("Viteza de proiectil tun este %f\n", viteza_proiectil_tun);
+					}
+					catch (std::invalid_argument) {
+						printf("Argument invalid pentru viteza_proiectil_tun, default la 15!\n");
+						viteza_proiectil_tun = 3;
+					}
+				}
+				else if (linie_config.compare("nr_bile") == 0) {
+					getline(configu, aux);
+					try {
+						nr_bile = std::stoi(aux);
+						if (nr_bile <= 0) {
+							throw (std::invalid_argument(std::to_string(nr_bile)));
+						}
+						printf("Numarul de bile este %d\n", nr_bile);
+					}
+					catch (std::invalid_argument) {
+						printf("Argument invalid pentru nr_bile, default la 75!\n");
+						nr_bile = 75;
+					}
+				}
+				else throw linie_config;
+				//std::cout << "\nUrmatorul sir:\n";
+			}
+			catch (std::string linie_citita){
+				std::cout << linie_citita << " nu este un parametru valid!\n";
+			}
+		}
 		// Close the file
 		configu.close();
 	}
