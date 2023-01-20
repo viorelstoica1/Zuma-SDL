@@ -40,4 +40,5 @@ void ScadereNumarBileExistente(SDL_Texture * p);
 
 void CresteNumarBileExistente(SDL_Texture* p);
 
+void CitireConfig(const char* configname, int& nr_bile, float& viteza_sir_intrare, float& viteza_sir_generala, float& viteza_proiectil_tun);
 #endif

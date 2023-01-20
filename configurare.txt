@@ -1,0 +1,4 @@
+viteza_sir_intrare 20
+viteza_sir_generala 2
+viteza_proiectil_tun 15
+nr_bile 75

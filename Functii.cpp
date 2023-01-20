@@ -6,6 +6,9 @@
 #include<cstdlib>
 #include"GameObject.h"
 #include <time.h>
+#include<fstream>
+#include<string>
+#include<iostream>
 SDL_Window* gWindow = NULL;//The window we'll be rendering to
 SDL_Renderer* gRenderer = NULL;//The window renderer
 int frame = 0;
@@ -13,6 +16,7 @@ int nr_culori;
 int latime = 0, lungime = 0;//marime ecran creat, setate de functia init
 bool init(int& latime, int& lungime)	//Initialize SDL
 {
+	srand(time(0));
 	bool success = true;	//Initialization flag
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
@@ -280,6 +284,49 @@ void CresteNumarBileExistente(SDL_Texture* p) {
 	printf("Am crescut nr de bile %d\n", i);
 }
 
+void CitireConfig(const char* configname, int& nr_bile, float& viteza_sir_intrare, float& viteza_sir_generala, float& viteza_proiectil_tun)
+{
+	//o linie din config
+	std::string linie_config;
+	// Read from the text file
+	std::ifstream configu(configname);
+	if (configu.is_open()) {
+		printf("Am gasit configurarile!\n");
+		// Use a while loop together with the getline() function to read the file line by line
+		while (getline(configu, linie_config,' ') /*&& !configu.eof()*/) {
+			std::cout << linie_config<<std::endl;
+			if (linie_config.compare("viteza_sir_intrare") == 0) {
+				configu >> viteza_sir_intrare;
+				printf("Viteza de intrare citita este %f\n", viteza_sir_intrare);
+				getline(configu, linie_config);
+			}
+			else if (linie_config.compare("viteza_sir_generala") == 0) {
+				configu >> viteza_sir_generala;
+				printf("Viteza de sir generala este %f\n", viteza_sir_generala);
+				getline(configu, linie_config);
+			}
+			else if (linie_config.compare("viteza_proiectil_tun") == 0) {
+				configu >> viteza_proiectil_tun;
+				printf("Viteza de proiectil tun este %f\n", viteza_proiectil_tun);
+				getline(configu, linie_config);
+			}
+			else if (linie_config.compare("nr_bile") == 0) {
+				configu >> nr_bile;
+				printf("Numarul de bile este %d\n", nr_bile);
+				getline(configu, linie_config);
+			}
+			std::cout << "\nUrmatorul sir:\n";
+		}
+
+		// Close the file
+		configu.close();
+	}
+	else {
+		printf("Nu am putut incarca configurarile!\n");
+	}
+
+}
+
 void ScadereNumarBileExistente(SDL_Texture* p){
 	int i;
 	for ( i = 0;i < nr_culori;i++) {
@@ -289,5 +336,3 @@ void ScadereNumarBileExistente(SDL_Texture* p){
 	}
 	printf("Am scazut nr de bile %d\n", i);
 }
-
-

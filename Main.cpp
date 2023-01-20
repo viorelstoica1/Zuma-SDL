@@ -13,7 +13,9 @@ int main( int argc, char* args[] )
 		printf( "Failed to initialize!\n" );
 	}
 	else {
-		printf("Da-mi aia 20 de centi inapoi\n");
+		int nr_bile;
+		float viteza_sir_intrare, viteza_sir_generala, viteza_proiectil_tun;
+		CitireConfig("configurare.txt", nr_bile, viteza_sir_intrare, viteza_sir_generala, viteza_proiectil_tun);
 		SDL_Texture* TexMeniu = IMG_LoadTexture(gRenderer, "grafici/Meniu.png");
 		SDL_Texture* TexWin = IMG_LoadTexture(gRenderer, "grafici/Win.png");
 		SDL_Texture* TexLose = IMG_LoadTexture(gRenderer, "grafici/Lose.png");
@@ -111,11 +113,11 @@ int main( int argc, char* args[] )
 
 				SDL_GetMouseState(&soricel.maus_x, &soricel.maus_y);//setare coordonate pentru crosshair inainte de randarea primului frame
 				Bila* biluta1 = new Bila(0, 0, GetRandomBila(), 8, latime / 2, 200, 0);
-				Lista ListaBile(Traseu, 75, 20, 2);
+				Lista ListaBile(Traseu, nr_bile, viteza_sir_intrare, viteza_sir_generala);
 				ListaBile.adaugaLaStangaListei(biluta1);
 				Textura Crosshair(TexCrosshair, soricel.maus_x, soricel.maus_y, 0);
 				Textura tex_fundal(TexFundal, 0, 0, 0);
-				Tun Tunar(15, TexTun, latime / 2 + latime / 8, lungime - lungime / 2, 0);
+				Tun Tunar(viteza_proiectil_tun, TexTun, latime / 2 + latime / 8, lungime - lungime / 2, 0);
 				Textura FundalTun(Tun_fundal, Tunar.GetCoordX(), Tunar.GetCoordY(), Tunar.GetUnghi());
 				Proiectil obuz(Ball, GetRandomBilaExistenta(), Tunar.GetCoordX(), Tunar.GetCoordY(), 0);
 				Proiectil rezerva(Ball, GetRandomBilaExistenta(), Tunar.GetCoordX(), Tunar.GetCoordY(), 0);

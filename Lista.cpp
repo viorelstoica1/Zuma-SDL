@@ -117,6 +117,7 @@ int Lista::Update(Tun* Tunar){
 		
 		if (CheckColiziuneBila(index, Tunar->GetProiectilIncarcat())) {
 			Bila* noua = this->CreeazaBila(Tunar->GetProiectilIncarcat());
+
 			coliziune = noua;
 			if (this->adaugaPeElement(index, noua)) {//dreapta
 				noua->SetIndex(index->GetIndex()+index->GetMarimeSpriteX());
