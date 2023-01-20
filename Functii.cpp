@@ -286,6 +286,10 @@ void CresteNumarBileExistente(SDL_Texture* p) {
 
 void CitireConfig(const char* configname, int& nr_bile, float& viteza_sir_intrare, float& viteza_sir_generala, float& viteza_proiectil_tun)
 {
+	nr_bile = 75;
+	viteza_sir_intrare = 20;
+	viteza_proiectil_tun = 15;
+	viteza_sir_generala = 3;
 	//o linie din config
 	std::string linie_config, aux;
 	// Read from the text file
@@ -337,7 +341,7 @@ void CitireConfig(const char* configname, int& nr_bile, float& viteza_sir_intrar
 					}
 					catch (std::invalid_argument) {
 						printf("Argument invalid pentru viteza_proiectil_tun, default la 15!\n");
-						viteza_proiectil_tun = 3;
+						viteza_proiectil_tun = 15;
 					}
 				}
 				else if (linie_config.compare("nr_bile") == 0) {
